@@ -44,7 +44,7 @@ jobs:
 
       - name: Use Variable Setup in Previews Step
         run: |
-          echo "I'm using variable ${{ steps.branch_check.outputs.env_name }}"
+          echo "I'm using variable" ${{ steps.branch_check.outputs.env_name }}
           echo  ${{ steps.branch_check.outputs.environment }}
           echo "${{ inputs.username }}"
 
