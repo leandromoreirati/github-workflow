@@ -21,6 +21,9 @@ on:
 jobs:
   reusable-workflow:
     runs-on: ${{ inputs.runs-on }}
+    outputs:
+      environment: ${{ steps.branch_check.outputs.environment }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -29,7 +32,7 @@ jobs:
         id: branch_check
         run: |
           echo "Running on branch ${{ github.ref }}"
-          if [[ "${{ github.ref }}" = "refs/heads/feature" ]]; then
+          if [[ "${{ github.ref }}" = refs/heads/feature/**" ]]; then
             echo "::set-output name=environment::feature"
           elif [[ "${{ github.ref }}" = "refs/heads/develop" ]]; then
             echo "::set-output name=environment::dev"
@@ -49,8 +52,6 @@ jobs:
           echo "${{ inputs.username }}"
           #echo "${{ env.environment }}"
 
-    outputs:
-      environment: ${{ steps.branch_check.outputs.environment }}
 
   deploy:
     runs-on: ${{ inputs.runs-on }}
