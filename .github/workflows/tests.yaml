@@ -7,11 +7,11 @@ on:
         required: true
         type: string
       runs-on:
-        required: true
+        required: false
         type: string
         default: 'ubuntu-latest'
       environment:
-        required: true
+        required: false
         type: string
         default: ''
     secrets:
