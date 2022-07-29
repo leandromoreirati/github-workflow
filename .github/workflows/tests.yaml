@@ -1,8 +1,5 @@
 name: "workflow lab"
 
-permissions:
-  id-token: read
-
 on:
   workflow_call:
     inputs:
