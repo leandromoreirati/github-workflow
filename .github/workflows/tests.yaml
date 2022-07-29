@@ -21,14 +21,12 @@ on:
 jobs:
   reusable-workflow:
     runs-on: ${{ inputs.runs-on }}
-    outputs:
-      environment: ${{ steps.set_environment.outputs.environment }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
       - name: Setting Environment
-        id: set_environment
+        id: branch_check
         run: |
           if [ "${{ github.ref }}" == "refs/heads/feature"]; then
             echo echo "::set-output name=environment::feature"
@@ -41,10 +39,12 @@ jobs:
           else
             echo "Ambiente não encontrado"
           fi
-        
+
       - name: Use Variable Setup in Previews Step
         run: |
-          echo "Estou rodando esse deploy no ambiente ${{ steps.set_environment.outputs.environment }}"
-          echo  ${{ steps.set_environment.outputs.environment }}
+          echo "I'm using variable ${{ steps.branch_check.outputs.env_name }}"
+          echo  ${{ steps.branch_check.outputs.environment }}
           echo "${{ inputs.username }}"
-    
+
+    outputs:
+      environment: ${{ steps.branch_check.outputs.environment }}
