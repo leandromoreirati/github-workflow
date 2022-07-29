@@ -1,0 +1,47 @@
+name: "workflow lab"
+
+permissions:
+  id-token: read
+
+on:
+  workflow_call:
+    inputs:
+      username:
+        required: true
+        type: string
+      runs-on:
+        required: true
+        type: string
+        default: 'ubuntu-latest'
+      environment:
+        required: true
+        type: string
+        default: ''
+    secrets:
+      password:
+        required: true
+
+jobs:
+  reusable-workflow:
+    runs-on: ${{ input.runs-on}}
+    outputs:
+      environment: ${{ steps.set_environment.outputs.environment }}
+    steps:
+      - name: Setting Environtmen
+        id: set_environment
+        run: |
+          if [ "${{ github.ref }}" == "refs/heads/master"]; then
+            echo "::set-output name=environment::prod" >> $GITHUB_ENV
+          elif [ "${{ github.ref }}" == "refs/heads/develop"]; then
+            echo "::set-output name=environment::dev" >> $GITHUB_ENV
+          elif [ "${{ github.ref }}" == "refs/heads/release"]; then
+            echo "::set-output name=environment::hom" >> $GITHUB_ENV
+          else
+            echo "Ambiente não encontrado"
+          fi
+        
+      - name: Use Variable Setup in Previews Step
+        run: |
+          echo "Estou rodando esse deploy no ambiente ${{ steps.set_environment.outputs.environment }}"
+
+    
