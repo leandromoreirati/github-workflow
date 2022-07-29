@@ -30,13 +30,13 @@ jobs:
         run: |
           echo "Running on branch ${{ github.ref }}"
           if [[ "${{ github.ref }}" = "refs/heads/feature" ]]; then
-            echo "::set-output name=environment::feature"
+            echo "::set-output name=environment::feature" >> $GITHUB_ENV
           if [[ "${{ github.ref }}" = "refs/heads/develop" ]]; then
-            echo "::set-output name=environment::dev"
+            echo "::set-output name=environment::dev" >> $GITHUB_ENV
           elif [[ "${{ github.ref }}" = "refs/heads/release" ]]; then
-            echo "::set-output name=environment::hom"
+            echo "::set-output name=environment::hom" >> $GITHUB_ENV
           elif [[ "${{ github.ref }}" = "refs/heads/main" ]]; then
-            echo "::set-output name=environment::prod"
+            echo "::set-output name=environment::prod" >> $GITHUB_ENV
           else
             echo "Ambiente não encontrado"
             exit 1
@@ -44,9 +44,10 @@ jobs:
 
       - name: Use Variable Setup in Previews Step
         run: |
-          echo "I'm using variable" ${{ steps.branch_check.outputs.env_name }}
-          echo  ${{ steps.branch_check.outputs.environment }}
-          echo "${{ inputs.username }}"
+          #echo "I'm using variable" ${{ steps.branch_check.outputs.env_name }}
+          #echo  ${{ steps.branch_check.outputs.environment }}
+          #echo "${{ inputs.username }}"
+          echo "${{ env.environment }}"
 
     outputs:
       environment: ${{ steps.branch_check.outputs.environment }}
