@@ -43,5 +43,6 @@ jobs:
       - name: Use Variable Setup in Previews Step
         run: |
           echo "Estou rodando esse deploy no ambiente ${{ steps.set_environment.outputs.environment }}"
+          echo "${{ input.username }}"
 
     
