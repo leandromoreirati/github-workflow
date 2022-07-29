@@ -31,14 +31,14 @@ jobs:
       - name: Setting Environment
         id: branch_check
         run: | 
-          echo "Running on branch ${{ github.ref }}"
-          if [[ "${{ github.ref }}" = "refs/heads/feature/workflow" ]]; then
+          echo "Running on branch ${{ github.base_ref }}"
+          if [[ "${{ github.base_ref }}" = "refs/heads/feature/workflow" ]]; then
             echo "::set-output name=environment::feature"
-          elif [[ "${{ github.ref }}" = "refs/heads/develop" ]]; then
+          elif [[ "${{ github.base_ref }}" = "refs/heads/develop" ]]; then
             echo "::set-output name=environment::dev"
-          elif [[ "${{ github.ref }}" = "^refs/heads/release/v[0-9]+\.[0-9]+\.[0-9]+$" ]]; then
+          elif [[ "${{ github.base_ref }}" = ^refs/heads/release/v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
             echo "::set-output name=environment::hom"
-          elif [[ "${{ github.ref }}" = "refs/heads/main" ]]; then
+          elif [[ "${{ github.base_ref }}" = "refs/heads/main" ]]; then
             echo "::set-output name=environment::prod"
           else
             echo "Ambiente não encontrado"
