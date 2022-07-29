@@ -20,7 +20,7 @@ on:
 
 jobs:
   reusable-workflow:
-    runs-on: ${{ inputs.runs-on s}}
+    runs-on: ${{ inputs.runs-on }}
     outputs:
       environment: ${{ steps.set_environment.outputs.environment }}
     steps:
