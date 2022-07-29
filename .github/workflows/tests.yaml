@@ -32,7 +32,7 @@ jobs:
         id: branch_check
         run: | 
           echo "Running on branch ${{ github.ref }}"
-          if [[ "${{ github.ref }}" = "refs/heads/feature/[\$0-9a-zA-Z]" ]]; then
+          if [[ "${{ github.ref }}" = "refs/heads/feature/workflow" ]]; then
             echo "::set-output name=environment::feature"
           elif [[ "${{ github.ref }}" = "refs/heads/develop" ]]; then
             echo "::set-output name=environment::dev"
