@@ -28,14 +28,14 @@ jobs:
       - name: Setting Environment
         id: branch_check
         run: |
-          echo "Running on branch ${{ {github.base_ref }}"
-          if [ "${{ {github.base_ref }}" == "feature"]; then
+          echo "Running on branch ${{ github.base_ref }}"
+          if [ "${{ github.base_ref }}" == "feature"]; then
             echo "::set-output name=environment::feature"
-          elif [ "${{ {github.base_ref }}" == "develop"]; then
+          elif [ "${{ github.base_ref }}" == "develop"]; then
             echo "::set-output name=environment::dev"
-          elif [ "${{ {github.base_ref }}" == "release"]; then
+          elif [ "${{ github.base_ref }}" == "release"]; then
             echo "::set-output name=environment::hom"
-          elif [ "${{ {github.base_ref }}" == "main"]; then
+          elif [ "${{ github.base_ref }}" == "main"]; then
             echo "::set-output name=environment::prod"
           else
             echo "Ambiente não encontrado"
