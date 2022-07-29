@@ -26,16 +26,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        
+
       - name: Setting Environment
         id: set_environment
         run: |
-          if [ "${{ github.ref }}" == "refs/heads/master"]; then
-            echo "::set-output name=environment::prod"
+          if [ "${{ github.ref }}" == "refs/heads/feature"]; then
+            echo echo "::set-output name=environment::feature"
           elif [ "${{ github.ref }}" == "refs/heads/develop"]; then
             echo "::set-output name=environment::dev"
           elif [ "${{ github.ref }}" == "refs/heads/release"]; then
             echo "::set-output name=environment::hom"
+          elif [ "${{ github.ref }}" == "refs/heads/main"]; then
+            echo "::set-output name=environment::prod"
           else
             echo "Ambiente não encontrado"
           fi
@@ -45,5 +47,4 @@ jobs:
           echo "Estou rodando esse deploy no ambiente ${{ steps.set_environment.outputs.environment }}"
           echo ${{ env.environment }}
           echo "${{ inputs.username }}"
-
     
