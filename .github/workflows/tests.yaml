@@ -30,7 +30,7 @@ jobs:
         run: |
           echo "Running on branch ${{ github.ref }}"
           if [ "${{ github.ref }}" == "refs/heads/feature"]; then
-            echo echo "::set-output name=environment::feature"
+            echo "::set-output name=environment::feature"
           elif [ "${{ github.ref }}" == "refs/heads/develop"]; then
             echo "::set-output name=environment::dev"
           elif [ "${{ github.ref }}" == "refs/heads/release"]; then
@@ -49,3 +49,15 @@ jobs:
 
     outputs:
       environment: ${{ steps.branch_check.outputs.environment }}
+
+  deploy:
+    runs-on: ${{ inputs.runs-on }}
+    needs:
+     - reusable-workflow
+    environment: 
+      name: ${{ needs.reusable-workflow.outputs.environment }}
+    
+    steps:
+      - name: Environment
+        run: |
+          echo ${{ env.name }}
