@@ -20,7 +20,7 @@ on:
 
 jobs:
   reusable-workflow:
-    runs-on: ${{ input.runs-on}}
+    runs-on: ${{ inputs.runs-on s}}
     outputs:
       environment: ${{ steps.set_environment.outputs.environment }}
     steps:
@@ -40,6 +40,6 @@ jobs:
       - name: Use Variable Setup in Previews Step
         run: |
           echo "Estou rodando esse deploy no ambiente ${{ steps.set_environment.outputs.environment }}"
-          echo "${{ input.username }}"
+          echo "${{ inputs.username }}"
 
     
