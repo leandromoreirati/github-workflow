@@ -32,7 +32,6 @@ jobs:
         id: branch_check
         run: | 
           echo "Running on branch ${{ github.ref }}"
-          contains(github.ref, 'feature')
           if [[ contains("${{ github.ref }}", 'feature') ]]; then
           #if [[ "${{ github.ref }}" = *"feature"* ]]; then
             echo "::set-output name=environment::feature"
