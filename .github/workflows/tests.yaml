@@ -28,6 +28,7 @@ jobs:
       - name: Setting Environment
         id: branch_check
         run: |
+          echo "Running on branch ${{ github.ref }}"
           if [ "${{ github.ref }}" == "refs/heads/feature"]; then
             echo echo "::set-output name=environment::feature"
           elif [ "${{ github.ref }}" == "refs/heads/develop"]; then
