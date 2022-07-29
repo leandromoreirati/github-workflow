@@ -24,6 +24,9 @@ jobs:
     outputs:
       environment: ${{ steps.set_environment.outputs.environment }}
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        
       - name: Setting Environment
         id: set_environment
         run: |
