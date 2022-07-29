@@ -29,6 +29,8 @@ jobs:
         id: branch_check
         run: |
           echo "Running on branch ${{ github.ref }}"
+          if [[ "${{ github.ref }}" = "refs/heads/feature" ]]; then
+            echo "::set-output name=environment::feature"
           if [[ "${{ github.ref }}" = "refs/heads/develop" ]]; then
             echo "::set-output name=environment::dev"
           elif [[ "${{ github.ref }}" = "refs/heads/release" ]]; then
