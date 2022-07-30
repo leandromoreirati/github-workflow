@@ -41,7 +41,8 @@ jobs:
           elif [[ "${{ github.ref }}" = "refs/heads/main" ]]; then
             echo "::set-output name=environment::prod"
           else
-            echo "Environment not found!"s
+            echo "Environment not found!"
+            echo ${{ github.head_ref }}
             exit 1
           fi
 
