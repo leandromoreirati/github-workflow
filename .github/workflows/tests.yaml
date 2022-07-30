@@ -42,7 +42,7 @@ jobs:
             echo "::set-output name=environment::prod"
           else
             echo "Environment not found!"
-            echo ${{ github.head_ref }}
+            echo "${{ github.head_ref }}"
             exit 1
           fi
 
