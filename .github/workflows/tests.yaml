@@ -43,7 +43,7 @@ jobs:
             echo "::set-output name=environment::prod"
           else
             echo "Environment not found!"
-            #exit 1
+            exit 1
           fi
 
       - name: Use Variable Setup in Previews Step
