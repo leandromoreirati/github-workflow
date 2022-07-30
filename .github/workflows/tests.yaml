@@ -35,7 +35,7 @@ jobs:
           echo "Running on branch ${{ github.base_ref }}"
           echo "Running on branch ${{ github.head_ref }}"
           echo "Running on branch ${{ github.ref_name }}"
-          if [[ "${{ github.ref }}" = "refs/heads/${{ github.ref_name }" ]]; then
+          if [[ "${{ github.ref }}" = "refs/heads/${{ github.ref_name }}" ]]; then
           
           #if [[ "${{ github.ref }}" = $(^refs/heads/feature/[a-zAZ0-9]) ]]; then
             echo "::set-output name=environment::feature"
