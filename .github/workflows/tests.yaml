@@ -32,7 +32,7 @@ jobs:
         id: branch_check
         run: | 
           echo "Running on branch ${{ github.ref }}"
-          if [[ "${{ github.ref }}" = "*feature*" ]]; then
+          if [[ "${{ github.ref }}" = "(refs/heads/feature//*)" ]]; then
             echo "::set-output name=environment::feature"
           elif [[ "${{ github.ref }}" = "refs/heads/develop" ]]; then
             echo "::set-output name=environment::dev"
@@ -41,7 +41,7 @@ jobs:
           elif [[ "${{ github.ref }}" = "refs/heads/main" ]]; then
             echo "::set-output name=environment::prod"
           else
-            echo "Ambiente não encontrado"
+            echo "Environment not found!"
             echo "${{ github.base_ref }}"
             exit 1
           fi
