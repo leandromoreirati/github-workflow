@@ -32,6 +32,9 @@ jobs:
         id: branch_check
         run: | 
           echo "Running on branch ${{ github.ref }}"
+          echo "Running on branch ${{ github.base_ref }}"
+          echo "Running on branch ${{ ggithub.head_ref }}"
+          echo "Running on branch ${{ github.ref_name }}"
           if [[ "${{ github.ref }}" = "refs/heads/feature/" ]]; then
           
           #if [[ "${{ github.ref }}" = $(^refs/heads/feature/[a-zAZ0-9]) ]]; then
