@@ -80,6 +80,7 @@ jobs:
           set -x
           echo ${{ github.actor }}
           echo $GITHUB_WORKSPACE
+          echo ${{ steps.version.outputs.SemVer }}
           cat $GITHUB_WORKSPACE/CHANGELOG.md
           ls -l $GITHUB_WORKSPACE
           git config --global user.name 'Leandro Moreira'
