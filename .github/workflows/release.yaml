@@ -70,26 +70,40 @@ jobs:
         id: version
         uses: gittools/actions/gitversion/execute@v1.1.1
 
+      #- name: "Create Release and Tag"
+      #  run: |-
+      #    set -x
+      #    echo ${{ steps.version.outputs.SemVer }}
+      #    
+      #    #git config --global user.email "hosted.agent@dev.azure.com"
+      #    #git config --global user.name "Azure Pipeline"
+      #    
+      #    ##git add $(System.DefaultWorkingDirectory)/releasenotes.md
+      #    ##git commit -m "Update Release Notes."
+      #    ##git tag $(SemVer)
+      #    #git tag $(SemVer)
+      #    ##git -c http.extraheader="AUTHORIZATION: bearer $(System.AccessToken)" push origin main
+      #    #git -c http.extraheader="AUTHORIZATION: bearer $(System.AccessToken)" push origin $(SemVer)
+      #    #git tag -a $(SemVer) -m 'Commit tag $(SemVer)' 
+      #    #git push --tags
+
       - name: "✏️ Generate release changelog"
         uses: heinrichreimer/action-github-changelog-generator@v2.3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }} 
 
       - name: Commit CHANGELOG
         run: |-
           set -x
           echo ${{ github.actor }}
           echo $GITHUB_WORKSPACE
-          echo ${{ steps.version.outputs.SemVer }}
-          cat $GITHUB_WORKSPACE/CHANGELOG.md
           ls -l $GITHUB_WORKSPACE
           git config --global user.name 'Leandro Moreira'
           git config --global user.email '${{ github.actor }}@users.noreply.github.com'
-          #git remote set-url origin https://x-access-token:$GITHUB_TOKEN@github.com/${{ github.repository }}
+          git remote set-url origin https://x-access-token:$GITHUB_TOKEN@github.com/${{ github.repository }}
           git add $GITHUB_WORKSPACE/CHANGELOG.md
-          git commit -m "Update CHANGELOG."
-          #git push oring main
-          git -c http.extraheader="AUTHORIZATION: bearer $GITHUB_TOKEN" push origin main
+          git commit -m "Update CHANGELOG.
+          git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -121,4 +135,3 @@ jobs:
       #    asset_name: NameOfYourArtifact.exe
       #    asset_content_type: application/octet-stream
       
-
