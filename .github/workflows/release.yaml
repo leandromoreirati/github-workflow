@@ -4,15 +4,15 @@ on:
   workflow_call:
     inputs:
       versionSpec:
-        required: true
+        #required: true
         type: string
         default: '5.12.x'
       GitVersionFilePath:
-        required: true
+        #required: true
         type: string
         default: './GitVersion.yml'
       dotNetVersion:
-        required: true
+        #required: true
         type: string
         default: '3.1.x'
       runs-on:
