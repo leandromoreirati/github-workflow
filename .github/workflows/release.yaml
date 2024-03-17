@@ -50,10 +50,35 @@ jobs:
 
       - uses: actions/checkout@v2.3.4 # Necessary to access local action
       
-      - name: Local Action Call Without Input
-        id: local-action
-        uses: ./.github/actions/release
+      #- name: Local Action Call Without Input
+      #  id: local-action
+      #  uses: ./.github/actions/release
+      #  with:
+      #    name: "World"
+      #- name: Local Action Output
+      #  run: echo "${{ steps.local-action.outputs.random }}"
+
+      - name: Checkout
+        uses: actions/checkout@v2
         with:
-          name: "World"
-      - name: Local Action Output
-        run: echo "${{ steps.local-action.outputs.random }}"
+          fetch-depth: 0
+      
+      - name: Install DotNet
+        uses: actions/setup-dotnet@v1
+      
+      - name: Use actions/setup-gitversion
+        uses: ./
+        with:
+          gitversion-version: ${{ inputs.versionSpec }}
+          run-gitversion: "true"
+          run-gitversion-args: "/version"
+          configFilePath: ${{ inputs.configFilePath }}
+      
+      - name: Run GitVersion
+        run: |-
+          cd test-project
+          GitVersion /updateassemblyinfo SharedAssemblyInfo.cs /ensureassemblyinfo
+          if [ ! -f "SharedAssemblyInfo.cs" ]; then
+            raise error "SharedAssemblyInfo.cs does not exist"
+          fi
+
