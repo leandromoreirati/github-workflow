@@ -97,6 +97,7 @@ jobs:
           set -x
           echo ${{ github.actor }}
           echo $GITHUB_WORKSPACE
+          cat $(GITHUB_WORKSPACE)/CHANGELOG.md
           ls -l $GITHUB_WORKSPACE
           git config --global user.name 'Leandro Moreira'
           git config --global user.email '${{ github.actor }}@users.noreply.github.com'
