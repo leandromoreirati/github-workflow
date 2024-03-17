@@ -56,10 +56,6 @@ jobs:
       - name: Commit CHANGELOG
         run: |-
           set -x
-          echo ${{ github.actor }}
-          echo $GITHUB_WORKSPACE
-          ls -l $GITHUB_WORKSPACE
-          cat $GITHUB_WORKSPACE/CHANGELOG.md
           git config --global user.name "GitHub Actions Bot"
           git config --global user.email "<>"
           git remote set-url origin https://x-access-token:$GITHUB_TOKEN@github.com/${{ github.repository }}
