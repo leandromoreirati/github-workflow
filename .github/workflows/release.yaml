@@ -70,23 +70,6 @@ jobs:
         id: version
         uses: gittools/actions/gitversion/execute@v1.1.1
 
-      #- name: "Create Release and Tag"
-      #  run: |-
-      #    set -x
-      #    echo ${{ steps.version.outputs.SemVer }}
-      #    
-      #    #git config --global user.email "hosted.agent@dev.azure.com"
-      #    #git config --global user.name "Azure Pipeline"
-      #    
-      #    ##git add $(System.DefaultWorkingDirectory)/releasenotes.md
-      #    ##git commit -m "Update Release Notes."
-      #    ##git tag $(SemVer)
-      #    #git tag $(SemVer)
-      #    ##git -c http.extraheader="AUTHORIZATION: bearer $(System.AccessToken)" push origin main
-      #    #git -c http.extraheader="AUTHORIZATION: bearer $(System.AccessToken)" push origin $(SemVer)
-      #    #git tag -a $(SemVer) -m 'Commit tag $(SemVer)' 
-      #    #git push --tags
-
       - name: "✏️ Generate release changelog"
         uses: heinrichreimer/action-github-changelog-generator@v2.3
         with:
