@@ -76,6 +76,7 @@ jobs:
       
       - name: Run GitVersion
         run: |-
-          GitVersion.Tool /?
-          GitVersion.Tool /showconfig
+          find / -iname "GitVersion*"
+          #GitVersion.Tool /?
+          #GitVersion.Tool /showconfig
 
