@@ -4,7 +4,7 @@ on:
   workflow_call:
     inputs:
       versionSpec:
-        required: false
+        required: true
         type: string
         default: '5.12.x'
       configFilePath:
