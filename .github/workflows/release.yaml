@@ -4,7 +4,7 @@ on:
   workflow_call:
     inputs:
       versionSpec:
-        required: true
+        required: false
         type: string
         default: '5.12.x'
       configFilePath:
@@ -29,7 +29,7 @@ jobs:
     runs-on: ${{ inputs.runs-on }}
     steps:
       - name: Input version of GitVertion (workflow call)
-        if: ${{ inputs.versionSpec }} != ''
+        if: ${{ github.event.inputs.versionSpec }} != ''
         run: echo ${{ github.event.inputs.versionSpec }}
 
       - name: Input Gitversion configuration file path.
@@ -38,7 +38,7 @@ jobs:
 
       - name: Input DotNet install Version
         if: ${{ inputs.dotNetVersion }} != ''
-        run: echo ${{ github.event.inputs.versionSpec }}
+        run: echo ${{ github.event.inputs.dotNetVersion }}
 
       - name: Input Agent
         if: ${{ github.event.inputs.username }} != ''
@@ -46,7 +46,7 @@ jobs:
 
       - name: Input Environtemnt
         if: ${{ inputs.environment }} != ''
-        run: echo ${{ github.event.inputs.versionSpec }}
+        run: echo ${{ github.event.inputs.environments }}
 
       - uses: actions/checkout@v2.3.4 # Necessary to access local action
       
@@ -70,6 +70,9 @@ jobs:
         uses: gittools/actions/gitversion/setup@v1.1.1
         with:
           versionSpec: ${{ github.event.inputs.versionSpec }}
+          includePrerelease: false
+          ignoreFailedSources: false
+          preferLatestVersion: false
       
       - name: Run GitVersion
         run: |-
