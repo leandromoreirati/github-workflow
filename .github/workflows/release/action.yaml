@@ -1,0 +1,50 @@
+name: 'Release'
+description: 'Generate Release Version'
+inputs:
+  versionSpec:
+    required: true
+    description: "GitVersion version."
+  configFilePath:
+    required: true
+    description: "Optional path to config file (defaults to GitVersion.yml)"
+  dotNetVersion:
+    required: true
+    description: "DotNet Version."
+  runs-on:
+    required: true
+    description: "Agent Release."
+  environment:
+    required: false
+    description: "Environtment"
+
+outputs:
+  random:
+    description: "Random number output"
+    value: ${{ steps.step1.outputs.random }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    
+    - name: Install DotNet
+      uses: actions/setup-dotnet@v1
+    
+    - name: Use actions/setup-gitversion
+      uses: ./
+      with:
+        gitversion-version: ${{ inputs.versionSpec }}
+        run-gitversion: "true"
+        run-gitversion-args: "/version"
+        configFilePath: ${{ inputs.configFilePath }}
+    
+    - name: Run GitVersion
+      run: |-
+        cd test-project
+        GitVersion /updateassemblyinfo SharedAssemblyInfo.cs /ensureassemblyinfo
+        if [ ! -f "SharedAssemblyInfo.cs" ]; then
+          raise error "SharedAssemblyInfo.cs does not exist"
+        fi

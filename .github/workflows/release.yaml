@@ -4,19 +4,19 @@ on:
   workflow_call:
     inputs:
       versionSpec:
-        #required: true
+        required: true
         type: string
         default: '5.12.x'
-      GitVersionFilePath:
-        #required: true
+      configFilePath:
+        required: true
         type: string
         default: './GitVersion.yml'
       dotNetVersion:
-        #required: true
+        required: true
         type: string
         default: '3.1.x'
       runs-on:
-        required: false
+        required: true
         type: string
         default: 'ubuntu-latest'
       environment:
@@ -27,63 +27,33 @@ on:
 jobs:
   reusable-workflow:
     runs-on: ${{ inputs.runs-on }}
-    outputs:
-      environment: ${{ steps.branch_check.outputs.environment }}
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - name: Input version of GitVertion (workflow call)
+        if: ${{ inputs.versionSpec }} != ''
+        run: echo ${{ inputs.versionSpec }}
 
-      #- name: Setting Environment
-      #  id: branch_check
-      #  run: |
-      #    echo "Running on branch ${{ github.ref }}"
-      #    if [[ "${{ github.ref }}" = refs/heads/feature/**" ]]; then
-      #      echo "::set-output name=environment::feature"
-      #    elif [[ "${{ github.ref }}" = "refs/heads/develop" ]]; then
-      #      echo "::set-output name=environment::dev"
-      #    elif [[ "${{ github.ref }}" = "refs/heads/release" ]]; then
-      #      echo "::set-output name=environment::hom"
-      #    elif [[ "${{ github.ref }}" = "refs/heads/main" ]]; then
-      #      echo "::set-output name=environment::prod"
-      #    else
-      #      echo "Ambiente não encontrado"
-      #      exit 1
-      #    fi
+      - name: Input Gitversion configuration file path.
+        if: ${{ github.event.inputs.username }} != ''
+        run: echo ${{ inputs.GitVersionFilePath }}
 
-      #- name: Use Variable Setup in Previews Step
-      #  run: |
-      #    echo "I'm using variable" ${{ steps.branch_check.outputs.environment }}
-      #    echo  ${{ steps.branch_check.outputs.environment }}
-      #    echo "${{ inputs.username }}"
-      #    #echo "${{ env.environment }}"
+      - name: Input DotNet install Version
+        if: ${{ inputs.dotNetVersion }} != ''
+        run: echo ${{ inputs.versionSpec }}
 
-  deploy:
-    runs-on: ${{ inputs.runs-on }}
-    needs:
-     - reusable-workflow
-    environment: 
-      name: ${{ needs.reusable-workflow.outputs.environment }}
-    
-    #steps:
-    #  - name: Environment
-    #    run: |
-    #      echo ${{ needs.reusable-workflow.outputs.environment }}
-    #      echo ${{ env.name }}
+      - name: Input Agent
+        if: ${{ github.event.inputs.username }} != ''
+        run: echo ${{ inputs.runs-on }}
 
-    steps:
-      - uses: actions/checkout@v1.0.0
-      - uses: actions/setup-dotnet@v1
-      - name: Use actions/setup-gitversion
-        uses: ./
+      - name: Input Environtemnt
+        if: ${{ inputs.environment }} != ''
+        run: echo ${{ inputs.versionSpec }}
+
+      - uses: actions/checkout@v2.3.4 # Necessary to access local action
+      
+      - name: Local Action Call Without Input
+        id: local-action
+        uses: ./.github/actions/release
         with:
-          gitversion-version: ${{matrix.gitversion-version}}
-          run-gitversion: "true"
-          run-gitversion-args: "/version"
-      - name: Run GitVersion tests
-        run: |-
-          cd test-project
-          GitVersion /updateassemblyinfo SharedAssemblyInfo.cs /ensureassemblyinfo
-          if [ ! -f "SharedAssemblyInfo.cs" ]; then
-            raise error "SharedAssemblyInfo.cs does not exist"
-          fi
+          name: "World"
+      - name: Local Action Output
+        run: echo "${{ steps.local-action.outputs.random }}"
