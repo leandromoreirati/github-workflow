@@ -1,0 +1,38 @@
+name: "Pre Commit Workflow"
+
+on:
+  workflow_call:
+    inputs:
+      tag:
+        required: false
+        type: string
+        default: 'latest'
+      image:
+        required: false
+        type: string
+        default: 'ghcr.io/antonbabenko/pre-commit-terraform'
+
+jobs:
+  pre-commit:
+    runs-on: ${{ inputs.runs-on }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      
+      - name: Pre-commit
+        run: |-
+          set -x
+          docker run -e "USERID=$(id -u):$(id -g)" -v $(pwd):/lint -w /lint ${{ inputs.image }}:${{ inputs.tag }} run -a
+          
+          sed -i 's/{{module-name}}/'$GITHUB_REPOSITORY'/' README.md
+
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email '<>'
+          git remote set-url origin https://x-access-token:$GITHUB_TOKEN@github.com/${{ github.repository }}
+          git add $GITHUB_WORKSPACE/README.md
+          git commit -m "Update README."
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
