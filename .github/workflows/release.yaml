@@ -103,7 +103,8 @@ jobs:
           git remote set-url origin https://x-access-token:$GITHUB_TOKEN@github.com/${{ github.repository }}
           git add $GITHUB_WORKSPACE/CHANGELOG.md
           git commit -m "Update CHANGELOG."
-          git push
+          #git push oring main
+          git -c http.extraheader="AUTHORIZATION: bearer $(GITHUB_TOKEN)" push origin main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
