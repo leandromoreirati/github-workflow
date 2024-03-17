@@ -76,7 +76,7 @@ jobs:
       
       - name: Run GitVersion
         run: |-
-          GitVersion
+          GitVersion /help
           #GitVersion /updateassemblyinfo SharedAssemblyInfo.cs /ensureassemblyinfo
           #if [ ! -f "SharedAssemblyInfo.cs" ]; then
           #  raise error "SharedAssemblyInfo.cs does not exist"
