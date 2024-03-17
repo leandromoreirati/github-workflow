@@ -95,8 +95,11 @@ jobs:
         with:
           tag_name: ${{ steps.version.outputs.SemVer }}
           release_name: Release ${{ steps.version.outputs.SemVer }}
-          body: TODO
-          draft: true
+          body: |
+            Changes in this Release
+            - First Change
+            - Second Change
+          draft: false
           prerelease: false
 
 
