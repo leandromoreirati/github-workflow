@@ -30,23 +30,23 @@ jobs:
     steps:
       - name: Input version of GitVertion (workflow call)
         if: ${{ inputs.versionSpec }} != ''
-        run: echo ${{ inputs.versionSpec }}
+        run: echo ${{ github.event.inputs.versionSpec }}
 
       - name: Input Gitversion configuration file path.
         if: ${{ github.event.inputs.username }} != ''
-        run: echo ${{ inputs.GitVersionFilePath }}
+        run: echo ${{ github.event.inputs.GitVersionFilePath }}
 
       - name: Input DotNet install Version
         if: ${{ inputs.dotNetVersion }} != ''
-        run: echo ${{ inputs.versionSpec }}
+        run: echo ${{ github.event.inputs.versionSpec }}
 
       - name: Input Agent
         if: ${{ github.event.inputs.username }} != ''
-        run: echo ${{ inputs.runs-on }}
+        run: echo ${{ github.event.inputs.runs-on }}
 
       - name: Input Environtemnt
         if: ${{ inputs.environment }} != ''
-        run: echo ${{ inputs.versionSpec }}
+        run: echo ${{ github.event.inputs.versionSpec }}
 
       - uses: actions/checkout@v2.3.4 # Necessary to access local action
       
