@@ -11,6 +11,10 @@ on:
         required: false
         type: string
         default: 'ghcr.io/antonbabenko/pre-commit-terraform'
+      runs-on:
+        required: false
+        type: string
+        default: 'ubuntu-latest'
 
 jobs:
   pre-commit:
