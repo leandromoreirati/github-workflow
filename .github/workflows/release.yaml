@@ -76,6 +76,6 @@ jobs:
       
       - name: Run GitVersion
         run: |-
-          GitVersion /?
-          GitVersion /showconfig
+          GitVersion.Tool /?
+          GitVersion.Tool /showconfig
 
