@@ -69,10 +69,7 @@ jobs:
       - name: Use actions/setup-gitversion
         uses: gittools/actions/gitversion/setup@v1.1.1
         with:
-          gitversion-version: ${{ github.event.inputs.versionSpec }}          
-          run-gitversion: "true"
-          run-gitversion-args: "/version"
-          configFilePath: ${{ github.event.inputs.GitVersionFilePath }}
+          versionSpec: ${{ github.event.inputs.versionSpec }}
       
       - name: Run GitVersion
         run: |-
