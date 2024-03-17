@@ -34,30 +34,29 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Setting Environment
-        id: branch_check
-        run: |
-          echo "Running on branch ${{ github.ref }}"
-          if [[ "${{ github.ref }}" = refs/heads/feature/**" ]]; then
-            echo "::set-output name=environment::feature"
-          elif [[ "${{ github.ref }}" = "refs/heads/develop" ]]; then
-            echo "::set-output name=environment::dev"
-          elif [[ "${{ github.ref }}" = "refs/heads/release" ]]; then
-            echo "::set-output name=environment::hom"
-          elif [[ "${{ github.ref }}" = "refs/heads/main" ]]; then
-            echo "::set-output name=environment::prod"
-          else
-            echo "Ambiente não encontrado"
-            exit 1
-          fi
+      #- name: Setting Environment
+      #  id: branch_check
+      #  run: |
+      #    echo "Running on branch ${{ github.ref }}"
+      #    if [[ "${{ github.ref }}" = refs/heads/feature/**" ]]; then
+      #      echo "::set-output name=environment::feature"
+      #    elif [[ "${{ github.ref }}" = "refs/heads/develop" ]]; then
+      #      echo "::set-output name=environment::dev"
+      #    elif [[ "${{ github.ref }}" = "refs/heads/release" ]]; then
+      #      echo "::set-output name=environment::hom"
+      #    elif [[ "${{ github.ref }}" = "refs/heads/main" ]]; then
+      #      echo "::set-output name=environment::prod"
+      #    else
+      #      echo "Ambiente não encontrado"
+      #      exit 1
+      #    fi
 
-      - name: Use Variable Setup in Previews Step
-        run: |
-          echo "I'm using variable" ${{ steps.branch_check.outputs.environment }}
-          echo  ${{ steps.branch_check.outputs.environment }}
-          echo "${{ inputs.username }}"
-          #echo "${{ env.environment }}"
-
+      #- name: Use Variable Setup in Previews Step
+      #  run: |
+      #    echo "I'm using variable" ${{ steps.branch_check.outputs.environment }}
+      #    echo  ${{ steps.branch_check.outputs.environment }}
+      #    echo "${{ inputs.username }}"
+      #    #echo "${{ env.environment }}"
 
   deploy:
     runs-on: ${{ inputs.runs-on }}
