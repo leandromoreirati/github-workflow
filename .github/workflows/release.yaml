@@ -73,10 +73,13 @@ jobs:
           includePrerelease: false
           ignoreFailedSources: false
           preferLatestVersion: true
+
+      - name: Determine Version
+        uses: gittools/actions/gitversion/execute@v1.1.1
       
-      - name: Run GitVersion
-        run: |-
-          find / -iname "GitVersion*"
-          #GitVersion.Tool /?
-          #GitVersion.Tool /showconfig
+      #- name: Run GitVersion
+      #  run: |-
+      #    find / -iname "GitVersion*"
+      #    #GitVersion.Tool /?
+      #    #GitVersion.Tool /showconfig
 
