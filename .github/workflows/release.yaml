@@ -66,13 +66,13 @@ jobs:
       - name: Install DotNet
         uses: actions/setup-dotnet@v1
       
-      - name: Use actions/setup-gitversion
+      - name: Install GitVersion
         uses: gittools/actions/gitversion/setup@v1.1.1
         with:
           versionSpec: ${{ inputs.versionSpec }}
           includePrerelease: false
           ignoreFailedSources: false
-          preferLatestVersion: false
+          preferLatestVersion: true
       
       - name: Run GitVersion
         run: |-
