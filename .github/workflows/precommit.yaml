@@ -29,10 +29,10 @@ jobs:
         run: |-
           set -x
           docker run -e "USERID=$(id -u):$(id -g)" -v $(pwd):/lint -w /lint ${{ inputs.image }}:${{ inputs.tag }} run -a
-          
-          #sed -i 's/{{module-name}}/'$GITHUB_REPOSITORY'/' README.md
 
           echo ${{ github.event.repository.name }}
+          
+          sed -i 's/{{module-name}}/'${{ github.event.repository.name }}'/' README.md          
 
           git config --global user.name "GitHub Actions Bot"
           git config --global user.email '<>'
