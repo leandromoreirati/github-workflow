@@ -1,0 +1,81 @@
+name: "GitVerson Workflow"
+
+on:
+  workflow_call:
+    inputs:
+      versionSpec:
+        required: true
+        type: string
+        default: '5.12.x'
+      GitVersionFilePath:
+        required: true
+        type: string
+        default: './GitVersion.yml'
+      dotNetVersion:
+        required: true
+        type: string
+        default: '3.1.x'
+      runs-on:
+        required: false
+        type: string
+        default: 'ubuntu-latest'
+      environment:
+        required: false
+        type: string
+        default: ''
+
+jobs:
+  reusable-workflow:
+    runs-on: ${{ inputs.runs-on }}
+    outputs:
+      environment: ${{ steps.branch_check.outputs.environment }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setting Environment
+        id: branch_check
+        run: |
+          echo "Running on branch ${{ github.ref }}"
+          if [[ "${{ github.ref }}" = refs/heads/feature/**" ]]; then
+            echo "::set-output name=environment::feature"
+          elif [[ "${{ github.ref }}" = "refs/heads/develop" ]]; then
+            echo "::set-output name=environment::dev"
+          elif [[ "${{ github.ref }}" = "refs/heads/release" ]]; then
+            echo "::set-output name=environment::hom"
+          elif [[ "${{ github.ref }}" = "refs/heads/main" ]]; then
+            echo "::set-output name=environment::prod"
+          else
+            echo "Ambiente não encontrado"
+            exit 1
+          fi
+
+      - name: Use Variable Setup in Previews Step
+        run: |
+          echo "I'm using variable" ${{ steps.branch_check.outputs.environment }}
+          echo  ${{ steps.branch_check.outputs.environment }}
+          echo "${{ inputs.username }}"
+          #echo "${{ env.environment }}"
+
+
+  deploy:
+    runs-on: ${{ inputs.runs-on }}
+    needs:
+     - reusable-workflow
+    environment: 
+      name: ${{ needs.reusable-workflow.outputs.environment }}
+    
+    #steps:
+    #  - name: Environment
+    #    run: |
+    #      echo ${{ needs.reusable-workflow.outputs.environment }}
+    #      echo ${{ env.name }}
+
+    steps:
+      - uses: actions/checkout@v1.0.0
+      - uses: actions/setup-setup-dotnet@v1
+      - uses: actions/setup-gitversion@v1.0.0
+        with:
+          versionSpec: ${{ inputs.versionSpec }}
+      - run: GitVersion
