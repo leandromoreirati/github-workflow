@@ -98,6 +98,7 @@ jobs:
           echo ${{ github.actor }}
           echo $GITHUB_WORKSPACE
           ls -l $GITHUB_WORKSPACE
+          cat $GITHUB_WORKSPACE/CHANGELOG.md
           git config --global user.name 'Leandro Moreira'
           git config --global user.email '${{ github.actor }}@users.noreply.github.com'
           git remote set-url origin https://x-access-token:$GITHUB_TOKEN@github.com/${{ github.repository }}
