@@ -84,6 +84,6 @@ jobs:
           #git -c http.extraheader="AUTHORIZATION: bearer $(System.AccessToken)" push origin $(SemVer)
           #git tag -a $(SemVer) -m 'Commit tag $(SemVer)' 
           #git push --tags
-          echo ${{ steps.version.output.SemVer }}
+          echo ${{ steps.version.outputs.SemVer }}
       
 
