@@ -33,7 +33,7 @@ jobs:
         run: echo ${{ inputs.versionSpec }}
 
       - name: Input Gitversion configuration file path.
-        if: ${{ inputs.username }} != ''
+        if: ${{ inputs.GitVersionFilePath }} != ''
         run: echo ${{ inputs.GitVersionFilePath }}
 
       - name: Input DotNet install Version
@@ -46,7 +46,7 @@ jobs:
 
       - name: Input Environtemnt
         if: ${{ inputs.environment }} != ''
-        run: echo ${{ inputs.environments }}
+        run: echo ${{ inputs.environment }}
 
       - uses: actions/checkout@v2.3.4 # Necessary to access local action
       
