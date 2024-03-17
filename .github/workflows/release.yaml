@@ -28,23 +28,23 @@ jobs:
   reusable-workflow:
     runs-on: ${{ inputs.runs-on }}
     steps:
-      - name: Input version of GitVertion (workflow call)
+      - name: Input Version of GitVertion
         if: ${{ inputs.versionSpec }} != ''
         run: echo ${{ inputs.versionSpec }}
 
-      - name: Input Gitversion configuration file path.
-        if: ${{ inputs.GitVersionFilePath }} != ''
-        run: echo ${{ inputs.GitVersionFilePath }}
+      - name: Input Gitversion Vonfiguration File Path.
+        if: ${{ inputs.configFilePath }} != ''
+        run: echo ${{ inputs.configFilePath }}
 
-      - name: Input DotNet install Version
+      - name: Input DotNet Install Version
         if: ${{ inputs.dotNetVersion }} != ''
         run: echo ${{ inputs.dotNetVersion }}
 
-      - name: Input Agent
+      - name: Input Github Agent
         if: ${{ inputs.username }} != ''
         run: echo ${{ inputs.runs-on }}
 
-      - name: Input Environtemnt
+      - name: Input Environment
         if: ${{ inputs.environment }} != ''
         run: echo ${{ inputs.environment }}
 
