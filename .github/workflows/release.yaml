@@ -102,7 +102,7 @@ jobs:
           git config --global user.email '${{ github.actor }}@users.noreply.github.com'
           git remote set-url origin https://x-access-token:$GITHUB_TOKEN@github.com/${{ github.repository }}
           git add $GITHUB_WORKSPACE/CHANGELOG.md
-          git commit -m "Update CHANGELOG.
+          git commit -m "Update CHANGELOG."
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
