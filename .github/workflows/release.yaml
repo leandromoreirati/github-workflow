@@ -92,6 +92,15 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }} 
 
+      - name: Commit CHANGELOG
+        run: |-
+          echo ${{ github.actor }}
+          #git config --global user.name 'Your Name'
+          #git config --global user.email 'your-username@users.noreply.github.com'
+          #git add $GITHUB_WORKSPACE
+          #git commit -am "Automated report"
+          #git push
+
       - name: Create release
         id: create_release
         uses: actions/create-release@v1
