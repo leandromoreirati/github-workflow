@@ -37,8 +37,9 @@ jobs:
           git config --global user.name "GitHub Actions Bot"
           git config --global user.email '<>'
           git remote set-url origin https://x-access-token:$GITHUB_TOKEN@github.com/${{ github.repository }}
+          git pull origin main
           git add $GITHUB_WORKSPACE/README.md
           git commit -m "Update README."
-          git push
+          git push origin main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
