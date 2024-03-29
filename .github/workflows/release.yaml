@@ -81,6 +81,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           version-file: './version.json'
+          skip-bump: 'true'
 
       - name: package
         run: |-
