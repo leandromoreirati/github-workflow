@@ -53,7 +53,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: package  conf
+      - name: package conf
         run: |-
           set -x
           cat 
