@@ -48,22 +48,29 @@ jobs:
         id: version
         uses: gittools/actions/gitversion/execute@v1.1.1
 
-      - name: "✏️ Generate release changelog"
-        uses: heinrichreimer/action-github-changelog-generator@v2.3
+      #- name: "✏️ Generate release changelog"
+      #  uses: heinrichreimer/action-github-changelog-generator@v2.3
+      #  with:
+      #    token: ${{ secrets.GITHUB_TOKEN }}
+#
+      #- name: Commit CHANGELOG
+      #  run: |-
+      #    set -x
+      #    git config --global user.name "GitHub Actions Bot"
+      #    git config --global user.email "<>"
+      #    git remote set-url origin https://x-access-token:$GITHUB_TOKEN@github.com/${{ github.repository }}
+      #    git add $GITHUB_WORKSPACE/CHANGELOG.md
+      #    git commit -m "Update CHANGELOG."
+      #    git push
+      #  env:
+      #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update CHANGELOG
+        id: changelog
+        uses: requarks/changelog-action@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Commit CHANGELOG
-        run: |-
-          set -x
-          git config --global user.name "GitHub Actions Bot"
-          git config --global user.email "<>"
-          git remote set-url origin https://x-access-token:$GITHUB_TOKEN@github.com/${{ github.repository }}
-          git add $GITHUB_WORKSPACE/CHANGELOG.md
-          git commit -m "Update CHANGELOG."
-          git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ steps.version.outputs.SemVer }}
 
       - name: Create release
         id: create_release
