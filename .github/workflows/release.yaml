@@ -53,7 +53,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: package conf
+      - name: Version Configuration
         run: |-
           set -x
           cat 
@@ -63,19 +63,7 @@ jobs:
           }
           EOF
           cat version.json
-
-      #- name: Commit CHANGELOG
-      #  run: |-
-      #    set -x
-      #    git config --global user.name "GitHub Actions Bot"
-      #    git config --global user.email "<>"
-      #    git remote set-url origin https://x-access-token:$GITHUB_TOKEN@github.com/${{ github.repository }}
-      #    git add $GITHUB_WORKSPACE/CHANGELOG.md
-      #    git commit -m "Update CHANGELOG."
-      #    git push
-      #  env:
-      #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+  
       - name: Conventional Changelog Action
         uses: TriPSs/conventional-changelog-action@v5
         with:
@@ -83,7 +71,7 @@ jobs:
           version-file: './version.json'
           skip-bump: 'true'
 
-      - name: package
+      - name: Showing Version
         run: |-
           set -x
           cat version.json
