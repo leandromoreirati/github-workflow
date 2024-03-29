@@ -51,7 +51,8 @@ jobs:
       - name: "✏️ Generate release changelog"
         uses: heinrichreimer/action-github-changelog-generator@v2.3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }} 
+          token: ${{ secrets.GITHUB_TOKEN }}
+          simpleList: true
 
       - name: Commit CHANGELOG
         run: |-
