@@ -57,12 +57,12 @@ jobs:
         run: |-
           set -x
           cat 
-          cat <<EOF > package.json
+          cat <<EOF > version.json
           {
             "version": "${{ steps.version.outputs.SemVer }}"
           }
           EOF
-          cat package.json
+          cat version.json
 
       #- name: Commit CHANGELOG
       #  run: |-
@@ -80,11 +80,12 @@ jobs:
         uses: TriPSs/conventional-changelog-action@v5
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          version-file: './version.json'
 
       - name: package
         run: |-
           set -x
-          cat package.json
+          cat version.json
 
       - name: Create release
         id: create_release
