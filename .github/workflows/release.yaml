@@ -53,6 +53,11 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: package
+        run: |-
+          ech
+          cat package.json
+
       #- name: Commit CHANGELOG
       #  run: |-
       #    set -x
@@ -73,6 +78,12 @@ jobs:
       - name: package
         run: |-
           set -x
+          cat 
+          cat <<EOF > package.json
+          {
+            "version": "${{ steps.version.outputs.SemVer }}"
+          }
+          EOF
           cat package.json
 
       - name: Create release
