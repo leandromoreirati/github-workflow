@@ -48,10 +48,10 @@ jobs:
         id: version
         uses: gittools/actions/gitversion/execute@v1.1.1
 
-      - name: "✏️ Generate release changelog"
-        uses: heinrichreimer/action-github-changelog-generator@v2.3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+      #- name: "✏️ Generate release changelog"
+      #  uses: heinrichreimer/action-github-changelog-generator@v2.3
+      #  with:
+      #    token: ${{ secrets.GITHUB_TOKEN }}
 
       #- name: Commit CHANGELOG
       #  run: |-
@@ -68,6 +68,7 @@ jobs:
         uses: TriPSs/conventional-changelog-action@v5
         with:
           github-token: ${{ secrets.github_token }}
+          fallback-version: ${{ steps.version.outputs.SemVer }}
 
       - name: Create release
         id: create_release
