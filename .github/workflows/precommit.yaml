@@ -15,8 +15,6 @@ on:
         required: false
         type: string
         default: 'ubuntu-latest'
-  pull_request:
-    branches: [feature/**]
 
 jobs:
   pre-commit:
