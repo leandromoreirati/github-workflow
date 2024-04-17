@@ -34,6 +34,10 @@ jobs:
           
           sed -i 's/{{module-name}}/'${{ github.event.repository.name }}'/' README.md
 
+          echo $GITHUB_BASE_REF
+          echo $GITHUB_REF
+          echo $GITHUB_REF_NAME
+
           git config --global user.name "GitHub Actions Bot"
           git config --global user.email '<>'
           git remote set-url origin https://x-access-token:$GITHUB_TOKEN@github.com/${{ github.repository }}
@@ -43,9 +47,6 @@ jobs:
           #git push origin main
           git push
 
-          echo $GITHUB_BASE_REF
-          echo $GITHUB_REF
-          echo $GITHUB_REF_NAME
 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
