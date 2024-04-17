@@ -42,5 +42,10 @@ jobs:
           git commit -m "Update README."
           #git push origin main
           git push
+
+          echo $GITHUB_BASE_REF
+          echo $GITHUB_REF
+          echo $GITHUB_REF_NAME
+
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
