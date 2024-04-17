@@ -44,9 +44,7 @@ jobs:
           git pull origin main
           git add $GITHUB_WORKSPACE/README.md
           git commit -m "Update README."
-          #git push origin main
-          git push
-
+          git push origin $GITHUB_REF_NAME
 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
