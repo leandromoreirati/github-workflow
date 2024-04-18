@@ -30,21 +30,16 @@ jobs:
           set -x
           docker run -e "USERID=$(id -u):$(id -g)" -e GITHUB_PAT=$GITHUB_TOKEN -v $(pwd):/lint -w /lint ${{ inputs.image }}:${{ inputs.tag }} run -av
 
-          echo ${{ github.event.repository.name }}
-          
-          sed -i 's/{{module-name}}/'${{ github.event.repository.name }}'/' README.md
-
-          echo $GITHUB_BASE_REF
-          echo $GITHUB_REF
-          echo $GITHUB_REF_NAME
-
-          git config --global user.name "GitHub Actions Bot"
-          git config --global user.email '<>'
-          git remote set-url origin https://x-access-token:$GITHUB_TOKEN@github.com/${{ github.repository }}
-          git pull origin main
-          git add $GITHUB_WORKSPACE/README.md
-          git commit -m "Update README."
-          git push origin $GITHUB_REF_NAME
+          if [[ $? -eq 0 ]]
+            sed -i 's/{{module-name}}/'${{ github.event.repository.name }}'/' README.md
+            git config --global user.name "GitHub Actions Bot"
+            git config --global user.email '<>'
+            git remote set-url origin https://x-access-token:$GITHUB_TOKEN@github.com/${{ github.repository }}
+            git pull origin main
+            git add $GITHUB_WORKSPACE/README.md           
+            git commit -m "Update README."
+            git push origin $GITHUB_REF_NAME
+          fi
 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
