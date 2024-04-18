@@ -30,7 +30,7 @@ jobs:
           set -x
           docker run -e "USERID=$(id -u):$(id -g)" -e GITHUB_PAT=$GITHUB_TOKEN -v $(pwd):/lint -w /lint ${{ inputs.image }}:${{ inputs.tag }} run -av
 
-          if [[ $? -eq 0 ]]
+          if [[ $? -eq 0 ]]; then
             sed -i 's/{{module-name}}/'${{ github.event.repository.name }}'/' README.md
             git config --global user.name "GitHub Actions Bot"
             git config --global user.email '<>'
