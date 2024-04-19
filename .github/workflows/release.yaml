@@ -56,7 +56,6 @@ jobs:
       - name: Version Configuration
         run: |-
           set -x
-          cat 
           cat <<EOF > version.json
           {
             "version": "${{ steps.version.outputs.SemVer }}"
@@ -69,6 +68,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           version-file: './version.json'
+          preset: conventionalcommits
           skip-bump: 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
