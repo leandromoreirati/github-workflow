@@ -68,8 +68,8 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           version-file: './version.json'
-          #preset: conventionalcommits
           skip-bump: 'true'
+          git-message: "Update Changelog"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
