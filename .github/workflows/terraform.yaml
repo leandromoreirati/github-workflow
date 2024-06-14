@@ -40,7 +40,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 'Terraform ${{ inputs.action }}'
-        run: |-
+        run: |
           set -x
           cat << EOF > ~/.netrc
           machine github.com
