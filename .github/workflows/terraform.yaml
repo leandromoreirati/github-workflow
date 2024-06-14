@@ -52,14 +52,12 @@ jobs:
           echo "EOF" >> $GITHUB_ENV
 
           echo $GITHUB_ENV
+          echo $GITHUB_WORKSPACE
+          echo $GITHUB_USERNAME
         id: netrc
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: display string
-        run: |
-          echo "The string is: ${{ steps.netrc.outputs.content }}"
-
+          GITHUB_USERNAME: ${{ github.event.schedule.user.login }}
 
       - name: 'Terraform ${{ inputs.action }}'
         run: |
