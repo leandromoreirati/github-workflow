@@ -33,7 +33,7 @@ jobs:
         with:
           terraform_version: ${{ inputs.terraform_version }}
 
-      - name: Pre-commit
+      - name: 'Terraform ${{ inputs.action }}'
         run: |-
           set -x
           ./build.sh ${{ inputs.action }}
