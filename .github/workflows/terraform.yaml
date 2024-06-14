@@ -50,6 +50,9 @@ jobs:
 
           chmod 600 ~/.netrc
           cat  ~/.netrc
+
+          ls -l ~/.netrc
+
           
           bash build.sh ${{ inputs.action }}
 
