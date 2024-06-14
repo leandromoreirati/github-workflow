@@ -33,6 +33,12 @@ jobs:
         with:
           terraform_version: ${{ inputs.terraform_version }}
 
+      - uses: extractions/netrc@v1
+        with:
+          machine: pypi.private.domain.com
+          username: ${{ secrets.PYPI_USERNAME }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
       - name: 'Terraform ${{ inputs.action }}'
         run: |-
           set -x
