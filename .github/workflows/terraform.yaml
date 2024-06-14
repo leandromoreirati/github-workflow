@@ -36,7 +36,7 @@ jobs:
       - name: 'Terraform ${{ inputs.action }}'
         run: |-
           set -x
-          ./build.sh ${{ inputs.action }}
+          bash build.sh ${{ inputs.action }}
 
         env:
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
