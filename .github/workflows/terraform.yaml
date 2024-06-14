@@ -53,9 +53,9 @@ jobs:
           
           bash build.sh ${{ inputs.action }}
 
-          echo $GITHUB_USERNAME
-          echo $GITHUB_TOKEN
-          echo $GITHUB_HEAD_REF
+          echo "$GITHUB_USERNAME"
+          echo "$GITHUB_TOKEN"
+          echo "$GITHUB_HEAD_REF"
         env:
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
