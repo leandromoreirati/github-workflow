@@ -1,0 +1,43 @@
+name: "Terraform Workflow"
+
+on:
+  workflow_call:
+    inputs:
+      terraform_version:
+        required: false
+        type: string
+        default: '1.5.0'
+      runs-on:
+        required: false
+        type: string
+        default: 'ubuntu-latest'
+      environment:
+        required: true
+        type: string
+        default: 'dev'
+      action:
+        required: true
+        type: string
+        default: 'plan'
+
+jobs:
+  terraform:
+    runs-on: ${{ inputs.runs-on }}
+    steps:
+      - uses: Checkout
+
+      - uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: ${{ inputs.terraform_version }}
+
+      - name: Pre-commit
+        run: |-
+          set -x
+          ./build.sh ${{ inputs.action }}
+
+        env:
+          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+          ARM_CLIENT_ID: ${{ secrets.ARM_TENANT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+          ARM_SECRET_ID: ${{ secrets.ARM_SECRET_ID }}
