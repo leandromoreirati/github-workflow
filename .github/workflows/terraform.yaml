@@ -43,7 +43,7 @@ jobs:
         run: |
           NETRC=$(cat << EOF
           machine github.com
-          login $GITHUB_ACTOR_ID
+          login $GITHUB_ACTOR
           password $GITHUB_TOKEN
           EOF
           )
@@ -54,6 +54,7 @@ jobs:
           echo $GITHUB_ENV
           echo $GITHUB_WORKSPACE
           echo $GITHUB_USERNAME
+          echo $GITHUB_ACTOR
         id: netrc
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
