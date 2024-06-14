@@ -19,7 +19,9 @@ on:
         required: true
         type: string
         default: 'plan'
-
+permissions:
+  contents: write
+  
 jobs:
   terraform:
     runs-on: ${{ inputs.runs-on }}
