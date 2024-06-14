@@ -24,7 +24,10 @@ jobs:
   terraform:
     runs-on: ${{ inputs.runs-on }}
     steps:
-      - uses: Checkout
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - uses: hashicorp/setup-terraform@v1
         with:
@@ -38,6 +41,6 @@ jobs:
         env:
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-          ARM_CLIENT_ID: ${{ secrets.ARM_TENANT_ID }}
+          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
           ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
           ARM_SECRET_ID: ${{ secrets.ARM_SECRET_ID }}
