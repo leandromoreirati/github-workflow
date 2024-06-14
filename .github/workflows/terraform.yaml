@@ -45,13 +45,14 @@ jobs:
           cat << EOF > ~/.netrc
           machine github.com
           login $GITHUB_USERNAME
-          password $PYPI_USERNAME
+          password $GITHUB_TOKEN
           EOF
 
           chmod 600 ~/.netrc
           
           bash build.sh ${{ inputs.action }}
 
+          echo $GITHUB_USERNAME
           echo $GITHUB_TOKEN
 
         env:
