@@ -72,7 +72,7 @@ jobs:
           cat  ~/.netrc
 
           ls -l ~/.netrc
-
+          git clone --single-branch --branch v1 https://github.com/leandromoreirati/built-library.git "$PWD/built-library"
           
           bash build.sh ${{ inputs.action }}
 
