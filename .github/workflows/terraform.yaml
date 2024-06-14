@@ -54,7 +54,7 @@ jobs:
 
           echo $GITHUB_USERNAME
           echo $GITHUB_TOKEN
-
+          echo $ARM_SUBSCRIPTION_ID
         env:
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
