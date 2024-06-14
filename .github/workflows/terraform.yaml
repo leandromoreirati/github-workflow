@@ -38,13 +38,16 @@ jobs:
           machine: pypi.private.domain.com
           username: ${{ secrets.PYPI_USERNAME }}
           password: ${{ secrets.GITHUB_TOKEN }}
-         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PYPI_USERNAME: ${{ PYPI_USERNAME }}
 
       - name: 'Terraform ${{ inputs.action }}'
         run: |-
           set -x
+          cat << EOF > $HOME/.netrc
+          machine github.com
+          login $GITHUB_USERNAME
+          password $PYPI_USERNAME
+          EOF
+          
           bash build.sh ${{ inputs.action }}
 
         env:
