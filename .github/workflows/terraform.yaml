@@ -42,11 +42,13 @@ jobs:
       - name: 'Terraform ${{ inputs.action }}'
         run: |-
           set -x
-          cat << EOF > $HOME/.netrc
+          cat << EOF > ~/.netrc
           machine github.com
           login $GITHUB_USERNAME
           password $PYPI_USERNAME
           EOF
+
+          chmod 600 ~/.netrc
           
           bash build.sh ${{ inputs.action }}
 
