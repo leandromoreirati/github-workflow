@@ -33,11 +33,33 @@ jobs:
         with:
           terraform_version: ${{ inputs.terraform_version }}
 
-      - uses: extractions/netrc@v1
-        with:
-          machine: pypi.private.domain.com
-          username: ${{ secrets.PYPI_USERNAME }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+      #- uses: extractions/netrc@v1
+      #  with:
+      #    machine: pypi.private.domain.com
+      #    username: ${{ secrets.PYPI_USERNAME }}
+      #    password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: create string
+        run: |
+          NETRC=$(cat << EOF
+          machine github.com
+          login $GITHUB_ACTOR_ID
+          password $GITHUB_TOKEN
+          EOF
+          )
+          echo "NETRC<<EOF" >> $GITHUB_ENV
+          echo "$NETRC" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+          echo $GITHUB_ENV
+        id: netrc
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: display string
+        run: |
+          echo "The string is: ${{ steps.netrc.outputs.content }}"
+
 
       - name: 'Terraform ${{ inputs.action }}'
         run: |
