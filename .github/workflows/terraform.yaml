@@ -38,6 +38,9 @@ jobs:
           machine: pypi.private.domain.com
           username: ${{ secrets.PYPI_USERNAME }}
           password: ${{ secrets.GITHUB_TOKEN }}
+         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PYPI_USERNAME: ${{ PYPI_USERNAME }}
 
       - name: 'Terraform ${{ inputs.action }}'
         run: |-
