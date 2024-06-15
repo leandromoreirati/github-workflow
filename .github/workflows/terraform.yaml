@@ -30,11 +30,15 @@ on:
         required: true
       ARM_SECRET_ID:
         required: true
-    #workflow_dispatch:
-    #  action:
-    #    required: true
-    #    type: string
-    #    default: 'plan'
+    workflow_dispatch:
+      action:
+        required: true
+        type: choice
+        default: 'plan'
+        options:
+          - plan
+          - apply
+          - destroy
 jobs:
   terraform:
     runs-on: ${{ inputs.runs-on }}
