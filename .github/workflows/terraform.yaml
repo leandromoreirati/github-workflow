@@ -44,12 +44,6 @@ jobs:
         with:
           terraform_version: ${{ inputs.terraform_version }}
 
-      - shell: bash
-        env:
-          SUPER_SECRET: ${{ secrets.SuperSecret }}
-        run: |
-          example-command "$SUPER_SECRET"
-
       - name: Clone Repository
         shell: bash
         run: |
