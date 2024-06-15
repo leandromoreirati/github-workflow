@@ -84,22 +84,20 @@ jobs:
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
           #git remote set-url origin https://x-access-token:$GITHUB_TOKEN@github.com/built-library.git
           
-          echo "$GITHUB_ACTOR"
-          echo "$GITHUB_TOKEN"
-          echo "$GITHUB_REF"
-          echo "$GITHUB_REF_NAME"
-          echo "$GITHUB_REPOSITORY"
-          echo "$ARM_SUBSCRIPTION_ID"
-          echo "$ARM_TENANT_ID"
-          echo "$ARM_CLIENT_ID"
-          echo "$ARM_CLIENT_SECRET"
-          echo "$ARM_SECRET_ID"
-          echo "${{ github.event.inputs.action }}"
+          echo $GITHUB_ACTOR
+          echo $GITHUB_TOKEN
+          echo $GITHUB_REF
+          echo $GITHUB_REF_NAME
+          echo $GITHUB_REPOSITORY
+          echo $ARM_SUBSCRIPTION_ID
+          echo $ARM_TENANT_ID
+          echo $ARM_CLIENT_ID
+          echo $ARM_CLIENT_SECRET
+          echo $ARM_SECRET_ID
           
           ls -l .
 
-          git clone https://github.com/leandromoreirati/built-library.git
-          
+          git clone https://github.com/leandromoreirati/built-library.git          
 
           bash build.sh ${{ inputs.action }}          
         env:
