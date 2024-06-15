@@ -23,13 +23,13 @@ on:
       ARM_SUBSCRIPTION_ID:
         required: true
       ARM_TENANT_ID:
-        required: false
+        required: true
       ARM_CLIENT_ID:
-        required: false
+        required: true
       ARM_CLIENT_SECRET:
-        required: false
+        required: true
       ARM_SECRET_ID:
-        required: false
+        required: true
     #workflow_dispatch:
     #  action:
     #    required: true
