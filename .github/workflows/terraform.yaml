@@ -57,7 +57,7 @@ jobs:
 
           git config --global url.https://github.com/.insteadOf git://github.com/
           
-          git clone https://github.com/leandromoreirati/built-library.git
+          #git clone https://github.com/leandromoreirati/built-library.git
 
           echo "$GITHUB_ACTOR"
           echo "$GITHUB_TOKEN"
