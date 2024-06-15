@@ -20,7 +20,7 @@ on:
         type: string
         default: 'plan'
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   terraform:
