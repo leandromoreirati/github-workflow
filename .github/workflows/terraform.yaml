@@ -38,8 +38,8 @@ jobs:
       - name: 'Terraform ${{ inputs.action }}'
         run: |
           set -x
-          git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-          git config --global user.name "$(gh api /users/${GITHUB_ACTOR} | jq .name -r)"
+          #git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+          #git config --global user.name "$(gh api /users/${GITHUB_ACTOR} | jq .name -r)"
           #git config -l
           
           cat << EOF > ~/.netrc
@@ -56,7 +56,7 @@ jobs:
           
           bash build.sh ${{ inputs.action }}
 
-          echo "$GITHUB_USERNAME"
+          echo "$GITHUB_ACTOR"
           echo "$GITHUB_TOKEN"
           echo "$GITHUB_HEAD_REF"
         env:
@@ -66,4 +66,4 @@ jobs:
           ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
           ARM_SECRET_ID: ${{ secrets.ARM_SECRET_ID }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_PAT: ${{ secrets.PAT }}
+          #GITHUB_PAT: ${{ secrets.PAT }}
