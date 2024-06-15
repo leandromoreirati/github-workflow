@@ -94,6 +94,12 @@ jobs:
           echo $ARM_CLIENT_ID
           echo $ARM_CLIENT_SECRET
           echo $ARM_SECRET_ID
+          echo ${{ inputs.action }}
+          echo ${{ inputs.ARM_SUBSCRIPTION_ID }}
+          echo ${{ inputs.ARM_TENANT_ID }}
+          echo ${{ inputs.ARM_CLIENT_ID }}
+          echo ${{ inputs.ARM_CLIENT_SECRET }}
+          echo ${{ inputs.ARM_SECRET_ID }}
           
           ls -l .
 
