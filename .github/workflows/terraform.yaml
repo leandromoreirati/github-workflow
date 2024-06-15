@@ -109,7 +109,7 @@ jobs:
           
           ls -l .
 
-          git clone https://${GITHUB_ACTOR}@github.com/leandromoreirati/built-library.git          
+          git clone https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/leandromoreirati/built-library.git          
 
           bash build.sh ${{ inputs.action }}          
         env:
