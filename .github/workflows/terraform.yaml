@@ -44,7 +44,11 @@ jobs:
           
           cat << EOF > ~/.netrc
           machine github.com
-          login x-oauth-basic
+          login ${GITHUB_ACTOR}
+          password ${GITHUB_TOKEN}
+
+          machine api.github.com
+          login ${GITHUB_ACTOR}
           password ${GITHUB_TOKEN}
           EOF
 
