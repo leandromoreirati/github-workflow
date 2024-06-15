@@ -53,11 +53,11 @@ jobs:
           EOF
 
           chmod 600 ~/.netrc
-          cat  ~/.netrc
+          #cat  ~/.netrc
 
           git config --global url.https://github.com/.insteadOf git://github.com/
           
-          git clone https://github.com/leandromoreirati/built-library.git
+          #git clone https://github.com/leandromoreirati/built-library.git
           
           bash build.sh ${{ inputs.action }}
 
