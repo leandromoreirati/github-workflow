@@ -1,110 +1,37 @@
-name: "Terraform Workflow"
+name: Test 98 reusable # Related to SO https://stackoverflow.com/questions/78513070/how-to-send-variables-to-called-workflow-from-the-caller-workflow/78514014?noredirect=1#comment138421206_78514014
 
 on:
+  workflow_dispatch:
+    inputs:
+      cacheName:
+        type: string
+        description: 'Provide Cache Name'
+      expirationType:
+        type: string
+        description: 'Provide Expiration Type'
+      expirationTime:
+        type: string
+        description: 'Provide Expiration Time in Seconds'
+
   workflow_call:
     inputs:
-      terraform_version:
-        required: false
+      cacheName:
         type: string
-        default: '1.5.0'
-      runs-on:
-        required: false
+        description: 'Provide Cache Name'
+      expirationType:
         type: string
-        default: 'ubuntu-latest'
-      environment:
-        required: true
+        description: 'Provide Expiration Type'
+      expirationTime:
         type: string
-        default: 'dev'
-      action:
-        required: true
-        type: string
-        default: 'plan'
-    secrets:
-      ARM_SUBSCRIPTION_ID:
-        required: false
-      ARM_TENANT_ID:
-        required: false
-      ARM_CLIENT_ID:
-        required: false
-      ARM_CLIENT_SECRET:
-        required: false
-      ARM_SECRET_ID:
-        required: false
-    #workflow_dispatch:
-    #  action:
-    #    required: true
-    #    type: string
-    #    default: 'plan'
+        description: 'Provide Expiration Time in Seconds'
+
 jobs:
-  terraform:
-    runs-on: ${{ inputs.runs-on }}
+  Create_Update-Cache:
+    runs-on: [ubuntu-latest]
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - uses: hashicorp/setup-terraform@v1
-        with:
-          terraform_version: ${{ inputs.terraform_version }}
-
-      #- name: Clone Repository
-      #  shell: bash
-      #  run: |
-      #    git config --global user.name "${{ github.actor }}"
-      #    git config --global user.email "${{ github.actor }}@users.noreply.github.com"
-      #    git clone https://github.com/leandromoreirati/built-library.git
-
-      - name: 'Terraform ${{ inputs.action }}'
-        shell: bash
+      - name: Do something
         run: |
-          set -x
-          #git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-          #git config --global user.name "$(gh api /users/${GITHUB_ACTOR} | jq .name -r)"
-          #git config -l
-          
-          cat << EOF > ~/.netrc
-          machine github.com
-          login ${GITHUB_ACTOR}
-          password ${GITHUB_TOKEN}
-
-          machine api.github.com
-          login ${GITHUB_ACTOR}
-          password ${GITHUB_TOKEN}
-          EOF
-
-          chmod 600 ~/.netrc
-          cat  ~/.netrc
-
-          #git config --global url.https://github.com/.insteadOf git://github.com/
-          #git remote add upstream "https://${GITHUB_TOKEN}@github.com/leandromoreirati/built-library.git"
-          
-          git config --global url."https://x-access-token:${GITHUB_TOKEN}@github.com/".insteadOf "git@github.com:"
-          git config --global user.name "${{ github.actor }}"
-          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
-          #git remote set-url origin https://x-access-token:$GITHUB_TOKEN@github.com/built-library.git
-          
-          echo $GITHUB_ACTOR
-          echo $GITHUB_TOKEN
-          echo $GITHUB_REF
-          echo $GITHUB_REF_NAME
-          echo $GITHUB_REPOSITORY
-          echo $ARM_SUBSCRIPTION_ID
-          echo $ARM_TENANT_ID
-          echo $ARM_CLIENT_ID
-          echo $ARM_CLIENT_SECRET
-          echo $ARM_SECRET_ID
-          
-          ls -l .
-
-          git clone https://github.com/leandromoreirati/built-library.git          
-
-          bash build.sh ${{ inputs.action }}          
-        env:
-          #ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-          #ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-          #ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-          #ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-          #ARM_SECRET_ID: ${{ secrets.ARM_SECRET_ID }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        #  #GITHUB_PAT: ${{ secrets.PAT }}
+          echo Iteration
+          echo ${{ inputs.cacheName }}
+          echo ${{ inputs.expirationType }}
+          echo ${{ inputs.expirationTime }}
