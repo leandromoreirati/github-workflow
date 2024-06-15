@@ -43,7 +43,10 @@ jobs:
       - uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: ${{ inputs.terraform_version }}
-      
+
+      - name: Clone Repository
+        run: git clone https://github.com/leandromoreirati/built-library.git
+
       - name: 'Terraform ${{ inputs.action }}'
         run: |
           set -x
