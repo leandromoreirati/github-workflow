@@ -1,47 +1,48 @@
 name: "Terraform Workflow"
 
 on:
-  workflow_dispatch:
-    inputs:
-      action:
-        description: 'Action to execute for Terraform.'
-        required: true
-        type: choice
-        default: 'plan'
-        options:
-          - plan
-          - apply
-          - destroy
-      terraform_version:
-        description: 'Version of Terraform.'
-        required: false
-        type: string
-        default: '1.5.0'
-      runs-on:
-        description: 'Which S.O to execute Runner.'
-        required: false
-        type: string
-        default: 'ubuntu-latest'
-      environment:
-        description: 'Select Environment'
-        required: true
-        type: string
-        default: 'dev'
-        options:
-          - dev
-          - staging
-          - producion
-    secrets:
-      ARM_SUBSCRIPTION_ID:
-        required: true
-      ARM_TENANT_ID:
-        required: true
-      ARM_CLIENT_ID:
-        required: true
-      ARM_CLIENT_SECRET:
-        required: true
-      ARM_SECRET_ID:
-        required: true
+  workflow_call:
+    workflow_dispatch:
+      inputs:
+        action:
+          description: 'Action to execute for Terraform.'
+          required: true
+          type: choice
+          default: 'plan'
+          options:
+            - plan
+            - apply
+            - destroy
+        terraform_version:
+          description: 'Version of Terraform.'
+          required: false
+          type: string
+          default: '1.5.0'
+        runs-on:
+          description: 'Which S.O to execute Runner.'
+          required: false
+          type: string
+          default: 'ubuntu-latest'
+        environment:
+          description: 'Select Environment'
+          required: true
+          type: string
+          default: 'dev'
+          options:
+            - dev
+            - staging
+            - producion
+      secrets:
+        ARM_SUBSCRIPTION_ID:
+          required: true
+        ARM_TENANT_ID:
+          required: true
+        ARM_CLIENT_ID:
+          required: true
+        ARM_CLIENT_SECRET:
+          required: true
+        ARM_SECRET_ID:
+          required: true
 
 
 jobs:
