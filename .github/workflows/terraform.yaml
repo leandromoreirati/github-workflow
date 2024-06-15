@@ -44,7 +44,7 @@ jobs:
           
           cat << EOF > ~/.netrc
           machine github.com
-          login ${GITHUB_ACTOR}
+          login x-oauth-basic
           password ${GITHUB_TOKEN}
           EOF
 
@@ -52,7 +52,7 @@ jobs:
           cat  ~/.netrc
 
           #ls -l ~/.netrc
-          #git clone https://github.com/leandromoreirati/built-library.git
+          git clone https://github.com/leandromoreirati/built-library.git
           
           bash build.sh ${{ inputs.action }}
 
