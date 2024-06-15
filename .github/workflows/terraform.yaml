@@ -2,23 +2,28 @@ name: "Terraform Workflow"
 
 on:
   workflow_call:
-    inputs:
-      terraform_version:
-        required: false
-        type: string
-        default: '1.5.0'
-      runs-on:
-        required: false
-        type: string
-        default: 'ubuntu-latest'
-      environment:
-        required: true
-        type: string
-        default: 'dev'
-      action:
-        required: true
-        type: string
-        default: 'plan'
+    workflow_dispatch:
+      inputs:
+        action:
+          required: true
+          type: choice
+          default: 'plan'
+          options:
+            - plan
+            - apply
+            - destroy
+        terraform_version:
+          required: false
+          type: string
+          default: '1.5.0'
+        runs-on:
+          required: false
+          type: string
+          default: 'ubuntu-latest'
+        environment:
+          required: true
+          type: string
+          default: 'dev'
     secrets:
       ARM_SUBSCRIPTION_ID:
         required: true
@@ -30,18 +35,11 @@ on:
         required: true
       ARM_SECRET_ID:
         required: true
-    workflow_dispatch:
-      action:
-        required: true
-        type: choice
-        default: 'plan'
-        options:
-          - plan
-          - apply
-          - destroy
+
+
 jobs:
   terraform:
-    runs-on: ${{ inputs.runs-on }}
+    runs-on: ${{ github.event.inputs.runs-on }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -50,7 +48,7 @@ jobs:
 
       - uses: hashicorp/setup-terraform@v1
         with:
-          terraform_version: ${{ inputs.terraform_version }}
+          terraform_version: ${{ github.event.inputs.terraform_version }}
 
       #- name: Clone Repository
       #  shell: bash
@@ -59,7 +57,7 @@ jobs:
       #    git config --global user.email "${{ github.actor }}@users.noreply.github.com"
       #    git clone https://github.com/leandromoreirati/built-library.git
 
-      - name: 'Terraform ${{ inputs.action }}'
+      - name: 'Terraform ${{ github.event.inputs.action }}'
         shell: bash
         run: |
           set -x
@@ -110,7 +108,7 @@ jobs:
 
           git clone https://github.com/leandromoreirati/built-library.git          
 
-          bash build.sh ${{ inputs.action }}          
+          bash build.sh ${{ github.event.inputs.action }}
         env:
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
