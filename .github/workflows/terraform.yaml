@@ -59,8 +59,8 @@ jobs:
         shell: bash
         run: |
           set -x
-          #git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-          #git config --global user.name "$(gh api /users/${GITHUB_ACTOR} | jq .name -r)"
+          git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+          git config --global user.name "$(gh api /users/${GITHUB_ACTOR} | jq .name -r)"
           #git config -l
           
           cat << EOF > ~/.netrc
@@ -87,7 +87,8 @@ jobs:
           #git remote add origin https://x-access-token:$GITHUB_TOKEN@github.com/leandromoreirati/built-library.git
           git remote rm origin
           #git remote add origin https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/leandromoreirati/built-library.git
-          git remote add origin https://x-access-token:$GITHUB_TOKEN@github.com/leandromoreirati/built-library.git
+          #git remote add origin https://x-access-token:$GITHUB_TOKEN@github.com/leandromoreirati/built-library.git
+          git remote add ssh://git@github.com/leandromoreirati/built-library.git
           git remote -v
           
           echo $GITHUB_ACTOR
@@ -110,7 +111,9 @@ jobs:
           
           ls -l .
 
-          git clone https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/leandromoreirati/built-library.git
+          #git clone https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/leandromoreirati/built-library.git
+          git clone git@github.com:leandromoreirati/pipeline-test.git
+          gh repo clone leandromoreirati/pipeline-test
 
           bash build.sh ${{ inputs.action }}
         env:
