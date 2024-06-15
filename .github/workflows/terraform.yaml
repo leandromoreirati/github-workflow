@@ -112,7 +112,7 @@ jobs:
           ls -l .
 
           #git clone https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/leandromoreirati/built-library.git
-          git clone git@github.com:leandromoreirati/pipeline-test.git
+          
           gh repo clone leandromoreirati/pipeline-test
 
           bash build.sh ${{ inputs.action }}
