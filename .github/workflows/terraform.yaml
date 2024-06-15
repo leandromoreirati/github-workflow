@@ -65,7 +65,7 @@ jobs:
           EOF
 
           chmod 600 ~/.netrc
-          #cat  ~/.netrc
+          cat  ~/.netrc
 
           #git config --global url.https://github.com/.insteadOf git://github.com/
           #git remote add upstream "https://${GITHUB_TOKEN}@github.com/leandromoreirati/built-library.git"
