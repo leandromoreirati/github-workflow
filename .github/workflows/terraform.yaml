@@ -86,7 +86,7 @@ jobs:
           #git remote set-url origin https://x-access-token:$GITHUB_TOKEN@github.com/built-library.git
           #git remote add origin https://x-access-token:$GITHUB_TOKEN@github.com/built-library.git
           git remote rm origin
-          https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/GITHUB_USERNAME/REPO_NAME.git
+          https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/built-library.git
           
           echo $GITHUB_ACTOR
           echo $GITHUB_TOKEN
