@@ -21,15 +21,15 @@ on:
         default: 'plan'
     secrets:
       ARM_SUBSCRIPTION_ID:
-        required: true
+        required: false
       ARM_TENANT_ID:
-        required: true
+        required: false
       ARM_CLIENT_ID:
-        required: true
+        required: false
       ARM_CLIENT_SECRET:
-        required: true
+        required: false
       ARM_SECRET_ID:
-        required: true
+        required: false
 
 jobs:
   terraform:
