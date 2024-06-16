@@ -140,6 +140,10 @@ jobs:
           echo $COMMIT_HASH
 
           bash build.sh ${{ inputs.action }}
+
+          if [[ "$#" -eq 0]]; then
+            bash build.sh testplan
+          if
         env:
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
