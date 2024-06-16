@@ -135,6 +135,8 @@ jobs:
           echo $ARM_TENANT_ID
           echo $ARM_SUBSCRIPTION_ID
           echo $GITHUB_SHA
+          export COMMIT_HASH=$(git rev-parse --short "${GITHUB_SHA}")
+          echo $COMMIT_HASH
 
           bash build.sh ${{ inputs.action }}
         env:
