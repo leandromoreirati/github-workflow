@@ -112,10 +112,10 @@ jobs:
           #git clone https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/leandromoreirati/built-library.git
           #git clone https://github.com/leandromoreirati/built-library.git
           
-          gh auth login
+          #gh auth login
           #gh repo clone leandromoreirati/built-library
           #gh repo clone leandromoreirati/pipeline-test
-          #git clone https://github.com/leandromoreirati/built-library.git
+          git clone https://github.com/leandromoreirati/built-library.git
 
           ls -l .
           export ENV=${{ inputs.environment }}
