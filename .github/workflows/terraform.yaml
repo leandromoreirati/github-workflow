@@ -79,9 +79,9 @@ jobs:
           #git config --global url.https://github.com/.insteadOf git://github.com/
           #git remote add upstream "https://${GITHUB_TOKEN}@github.com/leandromoreirati/built-library.git"
           
-          git config --global url."https://x-access-token:${GITHUB_TOKEN}@github.com/".insteadOf "git@github.com:"
-          git config --global user.name "${{ github.actor }}"
-          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+          #git config --global url."https://x-access-token:${GITHUB_TOKEN}@github.com/".insteadOf "git@github.com:"
+          #git config --global user.name "${{ GITHUB_ACTOR }}"
+          #git config --global user.email "${{ github.actor }}@users.noreply.github.com"
           #git remote set-url origin https://github.com/leandromoreirati/built-library.git
           #git remote set-url origin https://x-access-token:$GITHUB_TOKEN@github.com/leandromoreirati/built-library.git
           #git remote add origin https://x-access-token:$GITHUB_TOKEN@github.com/leandromoreirati/built-library.git
@@ -110,8 +110,9 @@ jobs:
           echo ${{ secrets.GITHUB_TOKEN }}
           
           #git clone https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/leandromoreirati/built-library.git
+          git clone https://github.com/leandromoreirati/built-library.git
           
-          gh repo clone leandromoreirati/built-library
+          #gh repo clone leandromoreirati/built-library
           #gh repo clone leandromoreirati/pipeline-test
 
           ls -l .
