@@ -113,6 +113,10 @@ jobs:
           echo ${{ secrets.PAT }}
 
           export GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
+          export ARM_CLIENT_ID=${{ secrets.ARM_CLIENT_ID }}
+          export ARM_CLIENT_SECRET=${{ secrets.ARM_CLIENT_SECRET }}
+          export ARM_TENANT_ID=${{ secrets.ARM_TENANT_ID }}
+          export ARM_SUBSCRIPTION_ID=${{ secrets.ARM_SUBSCRIPTION_ID }}
           
           #git clone https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/leandromoreirati/built-library.git
           #git clone https://github.com/leandromoreirati/built-library.git
@@ -120,7 +124,7 @@ jobs:
           #gh auth login
           #gh repo clone leandromoreirati/built-library
           #gh repo clone leandromoreirati/pipeline-test
-          git clone https://github.com/leandromoreirati/built-library.git
+          #git clone https://github.com/leandromoreirati/built-library.git
 
           ls -l .
           export ENV=${{ inputs.environment }}
