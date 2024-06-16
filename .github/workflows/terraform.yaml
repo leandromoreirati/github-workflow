@@ -85,7 +85,7 @@ jobs:
           #git remote set-url origin https://github.com/leandromoreirati/built-library.git
           #git remote set-url origin https://x-access-token:$GITHUB_TOKEN@github.com/leandromoreirati/built-library.git
           #git remote add origin https://x-access-token:$GITHUB_TOKEN@github.com/leandromoreirati/built-library.git
-          git remote rm origin
+          #git remote rm origin
           #git remote add origin https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/leandromoreirati/built-library.git
           #git remote add origin https://x-access-token:$GITHUB_TOKEN@github.com/leandromoreirati/built-library.git
           git remote add origin https://github.com/leandromoreirati/built-library.git
@@ -128,5 +128,5 @@ jobs:
           ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
           ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
           ARM_SECRET_ID: ${{ secrets.ARM_SECRET_ID }}
-          #GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         #  #GITHUB_PAT: ${{ secrets.PAT }}
