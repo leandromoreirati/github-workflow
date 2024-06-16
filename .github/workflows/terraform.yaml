@@ -113,10 +113,13 @@ jobs:
           #git clone https://github.com/leandromoreirati/built-library.git
           
           gh auth login
-          gh repo clone leandromoreirati/built-library
+          #gh repo clone leandromoreirati/built-library
           #gh repo clone leandromoreirati/pipeline-test
+          #git clone https://github.com/leandromoreirati/built-library.git
 
           ls -l .
+          export ENV=${{ inputs.environment }}
+          echo $ENV
 
           bash build.sh ${{ inputs.action }}
         env:
