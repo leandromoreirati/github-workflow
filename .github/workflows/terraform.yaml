@@ -128,7 +128,8 @@ jobs:
           #git clone https://github.com/leandromoreirati/built-library.git
 
           ls -l .
-          export ENV=${{ inputs.environment }}
+          #export ENV=${{ inputs.environment }}
+          export ENV="staging"
           echo $ENV
           echo $ARM_CLIENT_ID
           echo $ARM_CLIENT_SECRET
