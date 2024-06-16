@@ -111,6 +111,8 @@ jobs:
           echo ${{ secrets.ARM_SECRET_ID }}
           echo ${{ secrets.GITHUB_TOKEN }}
           echo ${{ secrets.PAT }}
+
+          export GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
           
           #git clone https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/leandromoreirati/built-library.git
           #git clone https://github.com/leandromoreirati/built-library.git
@@ -131,6 +133,6 @@ jobs:
           ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
           ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
           ARM_SECRET_ID: ${{ secrets.ARM_SECRET_ID }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PAT }}
           PAT: ${{ secrets.PAT }}
         #  #GITHUB_PAT: ${{ secrets.PAT }}
