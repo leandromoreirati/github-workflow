@@ -14,7 +14,7 @@ on:
       environment:
         required: true
         type: string
-        default: 'dev'
+        default: 'staging'
       action:
         required: true
         type: string
