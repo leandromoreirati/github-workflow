@@ -141,7 +141,7 @@ jobs:
 
           bash build.sh ${{ inputs.action }}
 
-          if [ "$#" -eq 0 ]; then
+          if [ $? -eq 0 ]; then
             bash build.sh testplan
           else
             echo -e "Error: Verify pipeline configuraion!"
