@@ -69,20 +69,19 @@ jobs:
 
           chmod 600 ~/.netrc
 
-
           export GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
           export ARM_CLIENT_ID=${{ secrets.ARM_CLIENT_ID }}
           export ARM_CLIENT_SECRET=${{ secrets.ARM_CLIENT_SECRET }}
           export ARM_TENANT_ID=${{ secrets.ARM_TENANT_ID }}
           export ARM_SUBSCRIPTION_ID=${{ secrets.ARM_SUBSCRIPTION_ID }}
-         
 
           export ENV=${{ inputs.environment }}
           #export ENV="staging"
+          echo ${{ inputs.action }}
 
           export COMMIT_HASH=$(git rev-parse --short "${GITHUB_SHA}")
           echo $COMMIT_HASH
-
+          
           bash build.sh ${{ inputs.action }}
 
           if [ $? -eq 0 ]; then
