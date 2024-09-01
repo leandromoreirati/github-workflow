@@ -35,8 +35,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        #with:
-        #  projectBaseDir: terraform/
-        #  args: >
-        #      -Dsonar.organization=${{ inputs.organization }}
-        #      -Dsonar.projectKey=${{ inputs.project_key }}
+        with:
+          projectBaseDir: terraform/
+          args: >
+              -Dsonar.organization=${{ inputs.organization }}
+              -Dsonar.projectKey=${{ inputs.project_key }}
