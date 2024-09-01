@@ -14,7 +14,7 @@ on:
       organization:
         required: true
         type: string
-      project_name:
+      project_key:
         required: true
         type: string
       branch_name:
@@ -35,9 +35,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          projectBaseDir: terraform/
-          args: >
-              -Dsonar.organization=${{ inputs.organization }}
-              -Dsonar.projectKey=${{ inputs.project_name }}
-              -Dsonar.branch.name=${{ inputs.branch_name }}
+        #with:
+        #  projectBaseDir: terraform/
+        #  args: >
+        #      -Dsonar.organization=${{ inputs.organization }}
+        #      -Dsonar.projectKey=${{ inputs.project_key }}
