@@ -17,6 +17,9 @@ on:
       project_name:
         required: true
         type: string
+      branch_name:
+        required: true
+        type: string
 
 jobs:
   release:
@@ -37,3 +40,4 @@ jobs:
           args: >
               -Dsonar.organization=${{ inputs.organization }}
               -Dsonar.projectKey=${{ inputs.project_name }}
+              -Dsonar.branch.name=${{ inputs.branch_name }}
