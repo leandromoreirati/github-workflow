@@ -6,7 +6,9 @@ on:
       runs-on:
         required: false
         type: string
-        default: 'ubuntu-latest'
+      sonar_version:
+        required: false
+        type: string
 
 jobs:
   release:
