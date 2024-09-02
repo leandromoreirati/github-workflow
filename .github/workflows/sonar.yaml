@@ -17,9 +17,6 @@ on:
       project_key:
         required: false
         type: string
-      branch_name:
-        required: false
-        type: string
 
 jobs:
   release:
@@ -31,7 +28,7 @@ jobs:
           fetch-depth: 0
 
       - name: SonarCloud Scan
-        uses: sonarsource/sonarcloud-github-action@master
+        uses: sonarsource/sonarcloud-github-action@${{ inputs.sonar_version }}
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
