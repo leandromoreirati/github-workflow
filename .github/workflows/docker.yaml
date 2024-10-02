@@ -10,6 +10,18 @@ on:
       runs-on:
         required: false
         type: string
+      versionSpec:
+        required: false
+        type: string
+        default: '5.12.x'
+      configFilePath:
+        required: false
+        type: string
+        default: './GitVersion.yml'
+      dotNetVersion:
+        required: false
+        type: string
+        default: '3.1.x'
     secrets:
       DOCKER_CONTAINER_REGISTRY:
         required: true
@@ -48,21 +60,6 @@ jobs:
       - name: Bump Version
         id: version
         uses: gittools/actions/gitversion/execute@v1.1.1
-
-      - name: "✏️ Generate release changelog"
-        uses: heinrichreimer/action-github-changelog-generator@v2.3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Version Configuration
-        run: |-
-          set -x
-          cat <<EOF > version.json
-          {
-            "version": "${{ steps.version.outputs.SemVer }}"
-          }
-          EOF
-          cat version.json
 
       - name: Build e Push no Azure Container Registry
         shell: bash
