@@ -84,8 +84,6 @@ jobs:
                     done
                 fi
               ) .
-
-              f_log "Image $__TAG was built successfully"
           fi
           }
 
@@ -99,8 +97,6 @@ jobs:
             export DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}
 
             docker push $__TAG
-            
-            f_log "Successfully pushed image $__TAG" 
           }
 
           push_image
