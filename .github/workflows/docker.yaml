@@ -73,11 +73,20 @@ jobs:
             export DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}
             export DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}
           
-          if [[ -e pre-req.sh ]]; then
+          if [[ -f pre-req.sh ]]; then
 
               bash pre-req.sh
               export DOCKER_BUILD=1
-              docker build -f ${{ inputs.docker_file_path }} -t ${{ inputs.docker_registry }}/${{ github.event.repository.name }}:${{ steps.version.outputs.InformationalVersion }} $(dirname $__DOCKER_FILE_PATH) $(
+              docker build -f ${{ inputs.docker_file_path }} -t ${{ inputs.docker_registry }}/${{ github.event.repository.name }}:${{ steps.version.outputs.InformationalVersion }} $(
+                if [ -n "$__ARG" ]; then
+                    for i in $__ARG; do
+                        echo "--build-arg "$i"";
+                    done
+                fi
+              ) .
+          else
+             export DOCKER_BUILD=1
+              docker build -f ${{ inputs.docker_file_path }} -t ${{ inputs.docker_registry }}/${{ github.event.repository.name }}:${{ steps.version.outputs.InformationalVersion }} $(
                 if [ -n "$__ARG" ]; then
                     for i in $__ARG; do
                         echo "--build-arg "$i"";
@@ -96,7 +105,7 @@ jobs:
             export DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}
             export DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}
 
-            docker push $__TAG
+            docker push ${{ inputs.docker_registry }}/${{ github.event.repository.name }}:${{ steps.version.outputs.InformationalVersion }}
           }
 
           push_image
