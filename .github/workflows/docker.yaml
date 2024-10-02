@@ -66,15 +66,12 @@ jobs:
         run: |
           set -x
           build_image() {
-            __DOCKER_FILE_PATH=$1
-            __ARG=$2
-
             export DOCKER_CONTAINER_REGISTRY=${{ secrets.DOCKER_CONTAINER_REGISTRY }}
             export DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}
             export DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}
           
             export DOCKER_BUILD=1
-            docker build -f ${{ inputs.docker_file_path }} -t $DOCKER_CONTAINER_REGISTRY/${{ github.event.repository.name }}:${{ steps.version.outputs.InformationalVersion }} $(dirname $__DOCKER_FILE_PATH) $(
+            docker build -f ${{ inputs.docker_file_path }} -t demostack.azurecr.io/${{ github.event.repository.name }}:${{ steps.version.outputs.InformationalVersion }} $(dirname $__DOCKER_FILE_PATH) $(
               if [ -n "$__ARG" ]; then
                   for i in $__ARG; do
                       echo "--build-arg "$i"";
