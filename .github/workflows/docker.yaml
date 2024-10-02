@@ -73,16 +73,20 @@ jobs:
             export DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}
             export DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}
           
-            export DOCKER_BUILD=1
-            docker build -f ${{ inputs.docker_file_path }} -t ${{ inputs.docker_registry }}/${{ github.event.repository.name }}:${{ steps.version.outputs.InformationalVersion }} $(dirname $__DOCKER_FILE_PATH) $(
-              if [ -n "$__ARG" ]; then
-                  for i in $__ARG; do
-                      echo "--build-arg "$i"";
-                  done
-              fi
-            ) .
-          
-            f_log "Image $__TAG was built successfully"
+          if [[ -e pre-req.sh ]]; then
+
+              bash pre-req.sh
+              export DOCKER_BUILD=1
+              docker build -f ${{ inputs.docker_file_path }} -t ${{ inputs.docker_registry }}/${{ github.event.repository.name }}:${{ steps.version.outputs.InformationalVersion }} $(dirname $__DOCKER_FILE_PATH) $(
+                if [ -n "$__ARG" ]; then
+                    for i in $__ARG; do
+                        echo "--build-arg "$i"";
+                    done
+                fi
+              ) .
+
+              f_log "Image $__TAG was built successfully"
+          fi
           }
 
           build_image
