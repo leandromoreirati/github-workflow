@@ -1,0 +1,95 @@
+name: "Docker Build and Push Image"
+
+on:
+  workflow_call:
+    inputs:
+      docker_file_path:
+        required: false
+        type: string
+        default: "./Dockerfile" 
+      runs-on:
+        required: false
+        type: string
+    secrets:
+      DOCKER_CONTAINER_REGISTRY:
+        required: true
+      DOCKER_USERNAME:
+        required: true
+      DOCKER_PASSWORD:
+        required: true
+
+jobs:
+  terraform:
+    runs-on: ${{ inputs.runs-on }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      #- name: Docker Login - Azure Container Registry
+      #  uses: Azure/docker-login@v1
+      #  with:
+      #    username: ${{ secrets.DOCKER_USERNAME }}
+      #    password: ${{ secrets.DOCKER_PASSWORD }}
+      #    login-server: ${{ secrets.DOCKER_CONTAINER_REGISTRY }}
+
+      - name: Bump Version
+        id: version
+        uses: gittools/actions/gitversion/execute@v1.1.1
+
+      - name: "✏️ Generate release changelog"
+        uses: heinrichreimer/action-github-changelog-generator@v2.3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Version Configuration
+        run: |-
+          set -x
+          cat <<EOF > version.json
+          {
+            "version": "${{ steps.version.outputs.SemVer }}"
+          }
+          EOF
+          cat version.json
+
+      - name: Build e Push no Azure Container Registry
+        shell: bash
+        run: |
+          set -x
+          build_image() {
+            __DOCKER_FILE_PATH=$1
+            __ARG=$2
+
+            export DOCKER_CONTAINER_REGISTRY=${{ secrets.DOCKER_CONTAINER_REGISTRY }}
+            export DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}
+            export DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}
+          
+            export DOCKER_BUILD=1
+            docker build -f $__DOCKER_FILE_PATH -t $DOCKER_CONTAINER_REGISTRY/${{ github.event.repository.name }}:${{ steps.version.outputs.SemVer }} $(dirname $__DOCKER_FILE_PATH) $(
+              if [ -n "$__ARG" ]; then
+                  for i in $__ARG; do
+                      echo "--build-arg "$i"";
+                  done
+              fi
+            )
+          
+            f_log "Image $__TAG was built successfully"
+          }
+          
+          push_image() {
+            __TAG=$1
+          
+            export DOCKER_CONTAINER_REGISTRY=${{ secrets.DOCKER_CONTAINER_REGISTRY }}
+            export DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}
+            export DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}
+
+            docker push $__TAG
+            
+            f_log "Successfully pushed image $__TAG" 
+          }
+        env:
+          DOCKER_CONTAINER_REGISTRY: ${{ secrets.DOCKER_CONTAINER_REGISTRY }}
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          GITHUB_TOKEN: ${{ secrets.PAT }}
