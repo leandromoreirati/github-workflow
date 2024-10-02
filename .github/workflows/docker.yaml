@@ -74,7 +74,7 @@ jobs:
             export DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}
           
             export DOCKER_BUILD=1
-            docker build -f $__DOCKER_FILE_PATH -t $DOCKER_CONTAINER_REGISTRY/${{ github.event.repository.name }}:${{ steps.version.outputs.InformationalVersion }} $(dirname $__DOCKER_FILE_PATH) $(
+            docker build -f ${{ inputs.docker_file_path }} -t $DOCKER_CONTAINER_REGISTRY/${{ github.event.repository.name }}:${{ steps.version.outputs.InformationalVersion }} $(dirname $__DOCKER_FILE_PATH) $(
               if [ -n "$__ARG" ]; then
                   for i in $__ARG; do
                       echo "--build-arg "$i"";
