@@ -74,7 +74,7 @@ jobs:
             export DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}
           
             export DOCKER_BUILD=1
-            docker build -f $__DOCKER_FILE_PATH -t $DOCKER_CONTAINER_REGISTRY/${{ github.event.repository.name }}:${{ steps.version.outputs.SemVer }} $(dirname $__DOCKER_FILE_PATH) $(
+            docker build -f $__DOCKER_FILE_PATH -t $DOCKER_CONTAINER_REGISTRY/${{ github.event.repository.name }}:${{ steps.version.outputs.InformationalVersion }} $(dirname $__DOCKER_FILE_PATH) $(
               if [ -n "$__ARG" ]; then
                   for i in $__ARG; do
                       echo "--build-arg "$i"";
@@ -84,6 +84,8 @@ jobs:
           
             f_log "Image $__TAG was built successfully"
           }
+
+          build_image
           
           push_image() {
             __TAG=$1
@@ -96,6 +98,8 @@ jobs:
             
             f_log "Successfully pushed image $__TAG" 
           }
+
+          push_image
         env:
           DOCKER_CONTAINER_REGISTRY: ${{ secrets.DOCKER_CONTAINER_REGISTRY }}
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
