@@ -77,7 +77,7 @@ jobs:
 
               bash pre-req.sh
               export DOCKER_BUILD=1
-              docker build -f ${{ inputs.docker_file_path }} -t ${{ inputs.docker_registry }}/${{ github.event.repository.name }}:${{ steps.version.outputs.InformationalVersion }} $(
+              docker build -f ${{ inputs.docker_file_path }} -t ${{ inputs.docker_registry }}/${{ github.event.repository.name }}:${{ steps.version.outputs.SemVer }} $(
                 if [ -n "$__ARG" ]; then
                     for i in $__ARG; do
                         echo "--build-arg "$i"";
