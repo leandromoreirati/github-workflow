@@ -80,7 +80,7 @@ jobs:
                       echo "--build-arg "$i"";
                   done
               fi
-            )
+            ) .
           
             f_log "Image $__TAG was built successfully"
           }
