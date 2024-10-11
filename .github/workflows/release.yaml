@@ -6,7 +6,7 @@ on:
       versionSpec:
         required: false
         type: string
-        default: '5.12.x'
+        default: '6.x'
       configFilePath:
         required: false
         type: string
@@ -37,7 +37,7 @@ jobs:
         uses: actions/setup-dotnet@v1
       
       - name: Install GitVersion
-        uses: gittools/actions/gitversion/setup@v1.1.1
+        uses: gittools/actions/gitversion/setup@v3.0.0
         with:
           versionSpec: ${{ inputs.versionSpec }}
           includePrerelease: false
@@ -46,7 +46,10 @@ jobs:
 
       - name: Bump Version
         id: version
-        uses: gittools/actions/gitversion/execute@v1.1.1
+        uses: gittools/actions/gitversion/execute@v3.0.0
+        with:
+          useConfigFile: true
+          configFilePath: VersionConfig.yml
 
       - name: "✏️ Generate release changelog"
         uses: heinrichreimer/action-github-changelog-generator@v2.3
