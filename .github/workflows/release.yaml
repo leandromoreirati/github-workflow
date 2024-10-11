@@ -6,7 +6,7 @@ on:
       versionSpec:
         required: false
         type: string
-        default: '6.x'
+        default: '5.12.x'
       configFilePath:
         required: false
         type: string
@@ -33,8 +33,8 @@ jobs:
         with:
           fetch-depth: 0
       
-      #- name: Install DotNet
-      #  uses: actions/setup-dotnet@v1
+      - name: Install DotNet
+        uses: actions/setup-dotnet@v1
       
       - name: Install GitVersion
         uses: gittools/actions/gitversion/setup@v3.0.0
