@@ -1,0 +1,51 @@
+name: "Update README.md"
+
+on:
+  workflow_call:
+    inputs:
+      runs-on:
+        required: false
+        type: string
+
+jobs:
+  documentation:
+    runs-on: ${{ inputs.runs-on }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: 'Terraform ${{ inputs.action }}'
+        shell: bash
+        run: |
+          set -x
+          git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+          git config --global user.name "$(gh api /users/${GITHUB_ACTOR} | jq .name -r)"
+
+          cat << EOF > ~/.netrc
+          machine github.com
+          login ${GITHUB_ACTOR}
+          password ${GITHUB_TOKEN}
+
+          machine api.github.com
+          login ${GITHUB_ACTOR}
+          password ${GITHUB_TOKEN}
+          EOF
+
+          chmod 600 ~/.netrc
+
+          echo $(Build.Repository.Name)
+
+          sed -i -e 's~{{module-name}}~'"$(Build.Repository.Name)"'~g' .docs/header.md  
+
+          cat .docs/header.md
+        env:
+          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+          ARM_SECRET_ID: ${{ secrets.ARM_SECRET_ID }}
+          GITHUB_TOKEN: ${{ secrets.PAT }}
+          PAT: ${{ secrets.PAT }}
+        #  #GITHUB_PAT: ${{ secrets.PAT }}
