@@ -44,6 +44,8 @@ jobs:
 
           git add ./README.md
 
+          echo $?
+
           if [ $? -eq 0 ]; then            
             git commit -m "Update README."
             git push --set-upstream origin ${{ github.head_ref || github.ref_name }} 
