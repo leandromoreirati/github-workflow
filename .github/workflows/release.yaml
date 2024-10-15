@@ -76,11 +76,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Showing Version
-        run: |-
-          set -x
-          cat version.json
-
       - name: Create release
         id: create_release
         uses: actions/create-release@v1
