@@ -51,8 +51,7 @@ jobs:
             git push --set-upstream origin ${{ github.head_ref || github.ref_name }} 
           else
             exit 0
-          fi
-          
+          fi          
 
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
