@@ -36,7 +36,7 @@ jobs:
           chmod 600 ~/.netrc
 
           echo ${GITHUB_REPOSITORY}
-          echo $(github.event.repository.name)
+          echo ${{ github.event.repository.name }}
 
           sed -i -e 's~{{module-name}}~'"${GITHUB_REPOSITORY}"'~g' ./terraform/.docs/header.md
 
