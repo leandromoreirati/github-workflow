@@ -35,12 +35,12 @@ jobs:
 
           chmod 600 ~/.netrc
 
-          echo $(GITHUB_REPOSITORY)
-          echo $(GITHUB_ACTION_REPOSITORY)
+          echo ${GITHUB_REPOSITORY}
+          echo ${GITHUB_ACTION_REPOSITORY}
 
-          sed -i -e 's~{{module-name}}~'"$(GITHUB_REPOSITORY)"'~g' .docs/header.md  
+          sed -i -e 's~{{module-name}}~'"${GITHUB_REPOSITORY}"'~g' ./terraform/.docs/header.md
 
-          cat .docs/header.md
+          cat ./terraform/.docs/header.md
         env:
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
