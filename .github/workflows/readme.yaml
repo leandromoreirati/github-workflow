@@ -38,7 +38,7 @@ jobs:
           echo ${GITHUB_REPOSITORY}
           echo ${{ github.event.repository.name }}
 
-          sed -i -e 's~{{module-name}}~'"${GITHUB_REPOSITORY}"'~g' ./terraform/.docs/header.md
+          sed -i -e 's~{{module-name}}~'"${{ github.event.repository.name }}"'~g' ./terraform/.docs/header.md
 
           cat ./terraform/.docs/header.md
         env:
