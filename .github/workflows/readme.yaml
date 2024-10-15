@@ -39,11 +39,11 @@ jobs:
           echo ${GITHUB_WORKSPACE}
           echo ${{ github.head_ref || github.ref_name }} 
 
-          sed -i -e 's~{{module-name}}~'"${{ github.event.repository.name }}"'~g' ./terraform/.docs/header.md
+          sed -i -e 's~{{module-name}}~'"${{ github.event.repository.name }}"'~g' ./README.md
 
-          cat ./terraform/.docs/header.md
+          cat ./README.md
 
-          git add ${GITHUB_WORKSPACE}/README.md
+          git add ./README.md
           git commit -m "Update README."
           git push --set-upstream origin ${{ github.head_ref || github.ref_name }} 
 
