@@ -43,10 +43,9 @@ jobs:
 
           cat ./terraform/.docs/header.md
 
-          git add $(System.DefaultWorkingDirectory)/CHANGELOG.md
-          git commit -m "Update Release Notes."
-          #git push --set-upstream origin $BRANCH_NAME
-
+          git add ${GITHUB_WORKSPACE}/README.md
+          git commit -m "Update README."
+          #git push --set-upstream origin ${{ github.head_ref || github.ref_name }} 
 
         env:
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
