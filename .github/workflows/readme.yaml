@@ -39,10 +39,6 @@ jobs:
           echo ${GITHUB_WORKSPACE}
           echo ${{ github.head_ref || github.ref_name }} 
 
-          #echo ${{ GITHUB_REF }}
-
-          echo ${{ GITHUB_REF_NAME }}
-          
           sed -i -e 's~{{module-name}}~'"${{ github.event.repository.name }}"'~g' ./terraform/.docs/header.md
 
           cat ./terraform/.docs/header.md
