@@ -39,6 +39,8 @@ jobs:
           echo ${GITHUB_WORKSPACE}
           echo ${{ github.event.repository.name }}
 
+          ls -l ${GITHUB_WORKSPACE}/README.md
+
           sed -i -e 's~{{module-name}}~'"${{ github.event.repository.name }}"'~g' ./terraform/.docs/header.md
 
           cat ./terraform/.docs/header.md
