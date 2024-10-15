@@ -16,7 +16,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: 'Terraform ${{ inputs.action }}'
+      - name: 'Update README.md"'
         shell: bash
         run: |
           set -x
@@ -35,9 +35,10 @@ jobs:
 
           chmod 600 ~/.netrc
 
-          echo $(Build.Repository.Name)
+          echo $(GITHUB_REPOSITORY)
+          echo $(GITHUB_ACTION_REPOSITORY)
 
-          sed -i -e 's~{{module-name}}~'"$(Build.Repository.Name)"'~g' .docs/header.md  
+          sed -i -e 's~{{module-name}}~'"$(GITHUB_REPOSITORY)"'~g' .docs/header.md  
 
           cat .docs/header.md
         env:
