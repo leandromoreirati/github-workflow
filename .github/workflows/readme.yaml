@@ -37,7 +37,7 @@ jobs:
 
           echo ${GITHUB_REPOSITORY}
           echo ${GITHUB_WORKSPACE}
-          echo ${{ github.event.repository.name }}
+          echo ${{ github.head_ref || github.ref_name }} 
 
           #echo ${{ GITHUB_REF }}
 
