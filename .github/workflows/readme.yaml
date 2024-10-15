@@ -46,7 +46,7 @@ jobs:
 
           echo $?
 
-          if [ $? -eq 0 ]; then            
+          if [ $? -ne 0 ]; then            
             git commit -m "Update README."
             git push --set-upstream origin ${{ github.head_ref || github.ref_name }} 
           else
