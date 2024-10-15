@@ -39,11 +39,19 @@ jobs:
           echo ${GITHUB_WORKSPACE}
           echo ${{ github.event.repository.name }}
 
-          ls -l ${GITHUB_WORKSPACE}/README.md
+          echo ${{ GITHUB_REF }}
 
+          echo ${{ GITHUB_REF_NAME }}
+          
           sed -i -e 's~{{module-name}}~'"${{ github.event.repository.name }}"'~g' ./terraform/.docs/header.md
 
           cat ./terraform/.docs/header.md
+
+          git add $(System.DefaultWorkingDirectory)/CHANGELOG.md
+          git commit -m "Update Release Notes."
+          #git push --set-upstream origin $BRANCH_NAME
+
+
         env:
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
