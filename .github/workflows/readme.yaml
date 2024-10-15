@@ -16,19 +16,12 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: actions/create-github-app-token@v1
-        id: app-token
-        with: 
-          app-id: ${{ vars.APP_ID }}
-          private-key: ${{ secrets.PRIVATE_KEY }}          
-          owner: ${{ github.repository_owner }}
-
       - name: 'Update README.md'
         shell: bash
         run: |
           set -x
           
-          gh auth login --with-token
+          echo $GITHUB_TOKEN | gh auth login --with-token
           git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
           git config --global user.name "$(gh api /users/${GITHUB_ACTOR} | jq .name -r)"
 
@@ -64,5 +57,5 @@ jobs:
           ARM_SECRET_ID: ${{ secrets.ARM_SECRET_ID }}
           GITHUB_TOKEN: ${{ secrets.PAT }}
           PAT: ${{ secrets.PAT }}
-          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+
         #  #GITHUB_PAT: ${{ secrets.PAT }}
