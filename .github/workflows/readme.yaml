@@ -20,8 +20,6 @@ jobs:
         shell: bash
         run: |
           set -x
-          #gh auth status
-          #echo $GITHUB_TOKEN | gh auth login --with-token
           
           git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
           git config --global user.name "$(gh api /users/${GITHUB_ACTOR} | jq .name -r)"
@@ -44,19 +42,15 @@ jobs:
 
           sed -i -e 's~{{module-name}}~'"${{ github.event.repository.name }}"'~g' ./README.md
 
-          cat ./README.md
-
           git add ./README.md
-          git commit -m "Update README."
-          git push --set-upstream origin ${{ github.head_ref || github.ref_name }} 
+
+          if [ $? -eq 0 ]; then            
+            git commit -m "Update README."
+            git push --set-upstream origin ${{ github.head_ref || github.ref_name }} 
+          else
+            exit 0
+          fi
+          
 
         env:
-          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-          ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-          ARM_SECRET_ID: ${{ secrets.ARM_SECRET_ID }}
           GITHUB_TOKEN: ${{ secrets.PAT }}
-          PAT: ${{ secrets.PAT }}
-
-        #  #GITHUB_PAT: ${{ secrets.PAT }}
