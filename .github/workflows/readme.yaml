@@ -38,8 +38,6 @@ jobs:
 
           sed -i -e 's~{{module-name}}~'"${{ github.event.repository.name }}"'~g' ./README.md
 
-          cat ./README.md
-
           git add ./README.md
 
           if [ $? -ne 0 ]; then            
