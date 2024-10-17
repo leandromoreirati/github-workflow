@@ -49,7 +49,7 @@ jobs:
         uses: gittools/actions/gitversion/execute@v3.0.0
         with:
           useConfigFile: true
-          configFilePath: ./GitVersion.yml
+          configFilePath: ${{ inputs.configFilePath }}
 
       - name: "✏️ Generate release changelog"
         uses: heinrichreimer/action-github-changelog-generator@v2.3
