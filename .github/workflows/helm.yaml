@@ -9,9 +9,6 @@ on:
       runs-on:
         required: false
         type: string
-      environment:
-        required: true
-        type: string
       action:
         required: true
         type: string
