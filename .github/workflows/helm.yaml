@@ -1,0 +1,101 @@
+name: "Terraform Workflow"
+
+on:
+  workflow_call:
+    inputs:
+      helm_version:
+        required: false
+        type: string
+      runs-on:
+        required: false
+        type: string
+      environment:
+        required: true
+        type: string
+      action:
+        required: true
+        type: string
+    secrets:
+      ARM_SUBSCRIPTION_ID:
+        required: true
+      ARM_TENANT_ID:
+        required: true
+      ARM_CLIENT_ID:
+        required: true
+      ARM_CLIENT_SECRET:
+        required: true
+      ARM_SECRET_ID:
+        required: true
+      PAT:
+        required: true
+
+jobs:
+  terraform:
+    runs-on: ${{ inputs.runs-on }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - uses: azure/setup-helm@v4.2.0
+        id: install
+        with:
+           version: ${{ inputs.helm_version }}
+        
+
+      - name: 'Terraform ${{ inputs.action }}'
+        shell: bash
+        run: |
+          set -x
+          git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+          git config --global user.name "$(gh api /users/${GITHUB_ACTOR} | jq .name -r)"
+
+          cat << EOF > ~/.netrc
+          machine github.com
+          login ${GITHUB_ACTOR}
+          password ${GITHUB_TOKEN}
+
+          machine api.github.com
+          login ${GITHUB_ACTOR}
+          password ${GITHUB_TOKEN}
+          EOF
+
+          chmod 600 ~/.netrc
+
+          export GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
+          export ARM_CLIENT_ID=${{ secrets.ARM_CLIENT_ID }}
+          export ARM_CLIENT_SECRET=${{ secrets.ARM_CLIENT_SECRET }}
+          export ARM_TENANT_ID=${{ secrets.ARM_TENANT_ID }}
+          export ARM_SUBSCRIPTION_ID=${{ secrets.ARM_SUBSCRIPTION_ID }}
+       
+          NAMESPACE=$(cat values.yaml | yq -r .namespace)
+          RELEASE_NAME=$(cat values.yaml | yq -r .releaseName)
+          CHART_VERSION==$(cat values.yaml | yq -r .chartVersion)
+
+          echo $NAMESPACE
+          echo $RELEASE_NAME
+          echo $CHART_VERSION
+          
+          #$(which helm) -n ${NAMESPACE} \
+          #    upgrade --install \
+          #    --create-namespace \
+          #    ${__GRAFANA_RELEASE_NAME} \
+          #    grafana/grafana \
+          #    --version ${__GRAFANA_CHART_VERSION} \
+          #    -f ${__GRAFANA_CONFIG_FOLDER}/values.yaml
+  
+          #if [ $? -eq 0 ]; then
+          #  bash build.sh testplan
+          #else
+          #  echo -e "Error: Verify pipeline!"
+          #fi
+        env:
+          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+          ARM_SECRET_ID: ${{ secrets.ARM_SECRET_ID }}
+          GITHUB_TOKEN: ${{ secrets.PAT }}
+          PAT: ${{ secrets.PAT }}
+        #  #GITHUB_PAT: ${{ secrets.PAT }}
